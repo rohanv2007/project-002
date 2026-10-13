@@ -93,18 +93,18 @@ function DonationVitalsPanel({
   };
 
   const inputCls =
-    "w-full rounded-lg border border-ink-300 bg-white px-3 py-2 text-sm text-ink-900 min-h-[44px]";
+    "w-full rounded-[3px] border border-line bg-cream px-3 py-2 text-sm text-ink min-h-[44px]";
 
   return (
     <div>
       <div className="flex items-center justify-between gap-2">
-        <p className="text-xs font-semibold text-ink-700">Mini-physical</p>
+        <p className="text-xs font-semibold text-soot">Mini-physical</p>
         <button
           onClick={() => {
             setOpen(!open);
             setError("");
           }}
-          className="rounded-lg px-3 py-1.5 text-xs font-semibold text-crimson-700 hover:bg-crimson-50 min-h-[44px]"
+          className="rounded-[3px] px-3 py-1.5 text-xs font-semibold text-signal hover:bg-cream min-h-[44px]"
           aria-expanded={open}
         >
           {hasVitals ? "Edit vitals" : "Log vitals"}
@@ -115,31 +115,31 @@ function DonationVitalsPanel({
           {v!.hemoglobin != null && (
             <span
               className={`rounded-full px-2.5 py-1 text-xs font-semibold tnum ${
-                lowHb ? "bg-amber-100 text-amber-900" : "bg-ink-100 text-ink-800"
+                lowHb ? "bg-cream text-gold" : "bg-sand text-ink"
               }`}
             >
               Hb {v!.hemoglobin} g/dL
             </span>
           )}
           {v!.systolic != null && v!.diastolic != null && (
-            <span className="rounded-full bg-ink-100 px-2.5 py-1 text-xs font-semibold text-ink-800 tnum">
+            <span className="rounded-full bg-sand px-2.5 py-1 text-xs font-semibold text-ink tnum">
               BP {v!.systolic}/{v!.diastolic}
             </span>
           )}
           {v!.pulse != null && (
-            <span className="rounded-full bg-ink-100 px-2.5 py-1 text-xs font-semibold text-ink-800 tnum">
+            <span className="rounded-full bg-sand px-2.5 py-1 text-xs font-semibold text-ink tnum">
               Pulse {v!.pulse} bpm
             </span>
           )}
           {v!.weight != null && (
-            <span className="rounded-full bg-ink-100 px-2.5 py-1 text-xs font-semibold text-ink-800 tnum">
+            <span className="rounded-full bg-sand px-2.5 py-1 text-xs font-semibold text-ink tnum">
               {v!.weight} kg
             </span>
           )}
         </div>
       )}
       {lowHb && !open && (
-        <p className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-xs font-medium text-amber-900 ring-1 ring-inset ring-amber-200">
+        <p className="mt-2 rounded-[3px] bg-cream px-3 py-2 text-xs font-medium text-gold ring-1 ring-inset ring-line">
           Hemoglobin below the {HEMOGLOBIN_CUTOFF_GDL} g/dL donation cutoff — this is the most
           common deferral reason. Iron-rich food and a recheck in a few weeks usually fix it.{" "}
           <Link href="/learn" className="font-bold underline">
@@ -148,16 +148,16 @@ function DonationVitalsPanel({
         </p>
       )}
       {!hasVitals && !open && (
-        <p className="mt-1 text-xs text-ink-500">
+        <p className="mt-1 text-xs text-faint">
           Camps check BP, pulse and hemoglobin before every donation — save yours here and spot
           trends.
         </p>
       )}
       {open && (
-        <div className="mt-2 rounded-xl bg-ink-50 p-3">
+        <div className="mt-2 rounded-[3px] bg-paper p-3">
           <div className="grid grid-cols-2 gap-2">
             <label className="block">
-              <span className="text-xs font-semibold text-ink-700">Hemoglobin (g/dL)</span>
+              <span className="text-xs font-semibold text-soot">Hemoglobin (g/dL)</span>
               <input
                 type="number"
                 inputMode="decimal"
@@ -170,7 +170,7 @@ function DonationVitalsPanel({
               />
             </label>
             <label className="block">
-              <span className="text-xs font-semibold text-ink-700">Weight (kg)</span>
+              <span className="text-xs font-semibold text-soot">Weight (kg)</span>
               <input
                 type="number"
                 inputMode="decimal"
@@ -183,7 +183,7 @@ function DonationVitalsPanel({
               />
             </label>
             <label className="block">
-              <span className="text-xs font-semibold text-ink-700">BP systolic</span>
+              <span className="text-xs font-semibold text-soot">BP systolic</span>
               <input
                 type="number"
                 inputMode="numeric"
@@ -195,7 +195,7 @@ function DonationVitalsPanel({
               />
             </label>
             <label className="block">
-              <span className="text-xs font-semibold text-ink-700">BP diastolic</span>
+              <span className="text-xs font-semibold text-soot">BP diastolic</span>
               <input
                 type="number"
                 inputMode="numeric"
@@ -207,7 +207,7 @@ function DonationVitalsPanel({
               />
             </label>
             <label className="block col-span-2">
-              <span className="text-xs font-semibold text-ink-700">Pulse (bpm)</span>
+              <span className="text-xs font-semibold text-soot">Pulse (bpm)</span>
               <input
                 type="number"
                 inputMode="numeric"
@@ -219,17 +219,17 @@ function DonationVitalsPanel({
               />
             </label>
           </div>
-          {error && <p className="mt-2 text-xs font-semibold text-crimson-700">{error}</p>}
+          {error && <p className="mt-2 text-xs font-semibold text-signal">{error}</p>}
           <div className="mt-2 flex gap-2">
             <button
               onClick={save}
-              className="rounded-lg bg-crimson-600 px-4 py-2 text-xs font-bold text-white hover:bg-crimson-700 min-h-[44px]"
+              className="rounded-[3px] bg-signal px-4 py-2 text-xs font-bold text-cream hover:bg-ember min-h-[44px]"
             >
               Save vitals
             </button>
             <button
               onClick={() => setOpen(false)}
-              className="rounded-lg border border-ink-300 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-white min-h-[44px]"
+              className="rounded-[3px] border border-line px-4 py-2 text-xs font-semibold text-soot hover:bg-cream min-h-[44px]"
             >
               Cancel
             </button>
@@ -430,30 +430,30 @@ export default function MyDonations() {
         <section
           role="alert"
           aria-label="Donation reminders"
-          className="rounded-2xl border-2 border-green-600 bg-green-50 p-5"
+          className="rounded-[4px] border-2 border-moss bg-cream p-5"
         >
-          <h2 className="text-base font-bold text-green-900">
+          <h2 className="text-base font-bold text-moss">
             You're eligible to donate again
           </h2>
-          <p className="mt-1 text-sm text-green-900">
+          <p className="mt-1 text-sm text-moss">
             {dueReminders[0].note} One donation can help up to three patients.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <Link
               href="/banks"
-              className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800 min-h-[44px] inline-flex items-center"
+              className="rounded-[3px] bg-moss px-4 py-2 text-sm font-semibold text-cream hover:bg-moss min-h-[44px] inline-flex items-center"
             >
               Find a blood bank
             </Link>
             <button
               onClick={() => snoozeReminder(dueReminders[0])}
-              className="rounded-xl border border-green-700 px-4 py-2 text-sm font-semibold text-green-900 hover:bg-green-100 min-h-[44px]"
+              className="rounded-[3px] border border-moss px-4 py-2 text-sm font-semibold text-moss hover:bg-cream min-h-[44px]"
             >
               Snooze 3 days
             </button>
             <button
               onClick={() => removeReminder(dueReminders[0].id)}
-              className="rounded-xl px-4 py-2 text-sm font-semibold text-green-900 underline-offset-2 hover:underline min-h-[44px]"
+              className="rounded-[3px] px-4 py-2 text-sm font-semibold text-moss underline-offset-2 hover:underline min-h-[44px]"
             >
               Dismiss
             </button>
@@ -465,31 +465,31 @@ export default function MyDonations() {
         <section
           role="alert"
           aria-label="Donation pledge due"
-          className="rounded-2xl border-2 border-crimson-600 bg-crimson-50 p-5"
+          className="rounded-[4px] border-2 border-signal bg-cream p-5"
         >
-          <h2 className="text-base font-bold text-crimson-900">
+          <h2 className="text-base font-bold text-ember">
             You pledged to donate {duePledges[0].forDate < todayIso ? "on " + formatDate(duePledges[0].forDate) : "today"}
           </h2>
-          <p className="mt-1 text-sm text-crimson-900">
+          <p className="mt-1 text-sm text-ember">
             {duePledges[0].location ? `At ${duePledges[0].location}. ` : ""}Donors who keep their pledged
             date are far more likely to come back again — this is how regular donors are made.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               onClick={() => fulfillPledge(duePledges[0])}
-              className="rounded-xl bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]"
+              className="rounded-[3px] bg-signal px-4 py-2 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]"
             >
               I donated today — log it
             </button>
             <button
               onClick={() => snoozePledge(duePledges[0])}
-              className="rounded-xl border border-crimson-700 px-4 py-2 text-sm font-semibold text-crimson-900 hover:bg-crimson-100 min-h-[44px]"
+              className="rounded-[3px] border border-signal px-4 py-2 text-sm font-semibold text-ember hover:bg-cream min-h-[44px]"
             >
               Push by 7 days
             </button>
             <button
               onClick={() => removePledge(duePledges[0].id)}
-              className="rounded-xl px-4 py-2 text-sm font-semibold text-crimson-900 underline-offset-2 hover:underline min-h-[44px]"
+              className="rounded-[3px] px-4 py-2 text-sm font-semibold text-ember underline-offset-2 hover:underline min-h-[44px]"
             >
               Cancel pledge
             </button>
@@ -501,12 +501,12 @@ export default function MyDonations() {
         <section
           role="status"
           aria-label="Donation streak"
-          className="rounded-2xl border border-amber-300 bg-amber-50 p-5"
+          className="rounded-[4px] border border-line bg-cream p-5"
         >
-          <h2 className="text-base font-bold text-amber-900">
+          <h2 className="text-base font-bold text-gold">
             {streak}-window donation streak
           </h2>
-          <p className="mt-1 text-sm text-amber-900">
+          <p className="mt-1 text-sm text-gold">
             You've donated in {streak} consecutive 90-day windows. Regular donors like you are
             the backbone of every blood service — this is how shortages get solved.
           </p>
@@ -517,18 +517,18 @@ export default function MyDonations() {
         <section
           role="alert"
           aria-label="Active blood-bank deferral"
-          className="rounded-2xl border border-amber-300 bg-amber-50 p-5"
+          className="rounded-[4px] border border-line bg-cream p-5"
         >
-          <h2 className="text-base font-bold text-amber-900">
+          <h2 className="text-base font-bold text-gold">
             You're on a deferral until {formatDate(myDeferral.deferredUntil)}
           </h2>
-          <p className="mt-1 text-sm text-amber-900">
+          <p className="mt-1 text-sm text-gold">
             {myDeferral.reason} You won't appear as a ready donor in emergency matches
             until this lifts — that's the safe, honest behaviour.
           </p>
           <button
             onClick={() => removeDeferral(myDeferral.id)}
-            className="mt-3 rounded-xl border border-amber-700 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-100 min-h-[44px]"
+            className="mt-3 rounded-[3px] border border-gold px-4 py-2 text-sm font-semibold text-gold hover:bg-cream min-h-[44px]"
           >
             Cleared early — remove it
           </button>
@@ -536,10 +536,10 @@ export default function MyDonations() {
       )}
 
       {upcomingAppts.length > 0 && (
-        <section aria-label="Donation appointments" className="rounded-2xl border border-ink-200 bg-white p-5">
+        <section aria-label="Donation appointments" className="rounded-[4px] border border-line bg-cream p-5">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-sm font-bold text-ink-900">Your donation appointments</h2>
-            <Link href="/camps" className="text-xs font-semibold text-crimson-700 hover:underline">
+            <h2 className="text-sm font-bold text-ink">Your donation appointments</h2>
+            <Link href="/camps" className="text-xs font-semibold text-signal hover:underline">
               Book another
             </Link>
           </div>
@@ -548,31 +548,31 @@ export default function MyDonations() {
               const todayStart = new Date(new Date().toISOString().slice(0, 10) + "T00:00:00").getTime();
               const daysOut = Math.round((new Date(a.date + "T00:00:00").getTime() - todayStart) / 86400000);
               return (
-                <li key={a.id} className="flex flex-wrap items-center gap-3 rounded-xl bg-ink-50 px-4 py-3">
+                <li key={a.id} className="flex flex-wrap items-center gap-3 rounded-[3px] bg-paper px-4 py-3">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-ink-900">{a.label}</p>
-                    <p className="text-xs text-ink-500">
+                    <p className="truncate text-sm font-semibold text-ink">{a.label}</p>
+                    <p className="text-xs text-faint">
                       {formatDate(a.date)} · {a.slot}
-                      {daysOut <= 1 && <span className="font-bold text-crimson-700"> — {daysOut === 0 ? "today" : "tomorrow"}, don't skip</span>}
+                      {daysOut <= 1 && <span className="font-bold text-signal"> — {daysOut === 0 ? "today" : "tomorrow"}, don't skip</span>}
                       {daysOut > 1 && <span> · in {daysOut} days</span>}
                     </p>
                   </div>
                   <button
                     onClick={() => attendAppointment(a)}
-                    className="rounded-lg bg-green-700 px-3 py-2 text-xs font-semibold text-white hover:bg-green-800 min-h-[44px]"
+                    className="rounded-[3px] bg-moss px-3 py-2 text-xs font-semibold text-cream hover:bg-moss min-h-[44px]"
                   >
                     I donated — log it
                   </button>
                   <a
                     href={apptIcsHref(a)}
                     download={`raktha-appointment-${a.date}.ics`}
-                    className="rounded-lg px-3 py-2 text-xs font-semibold text-ink-600 hover:bg-ink-100 min-h-[44px] inline-flex items-center"
+                    className="rounded-[3px] px-3 py-2 text-xs font-semibold text-soot hover:bg-sand min-h-[44px] inline-flex items-center"
                   >
                     Add to calendar
                   </a>
                   <button
                     onClick={() => removeAppointment(a.id)}
-                    className="rounded-lg px-3 py-2 text-xs font-semibold text-ink-500 hover:bg-ink-100 min-h-[44px]"
+                    className="rounded-[3px] px-3 py-2 text-xs font-semibold text-faint hover:bg-sand min-h-[44px]"
                   >
                     Cancel
                   </button>
@@ -583,13 +583,13 @@ export default function MyDonations() {
         </section>
       )}
 
-      <section aria-label="Invite a donor" className="rounded-2xl border border-ink-200 bg-white p-5">
-        <h2 className="text-sm font-bold text-ink-900">Know someone who should donate?</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Invite a donor" className="rounded-[4px] border border-line bg-cream p-5">
+        <h2 className="text-sm font-bold text-ink">Know someone who should donate?</h2>
+        <p className="mt-1 text-sm text-soot">
           A personal invite from a donor converts better than any poster. Send this to
           friends and family — every new registrant makes the next emergency easier.
         </p>
-        <p className="mt-3 whitespace-pre-line rounded-xl bg-ink-50 px-4 py-3 text-sm text-ink-700">
+        <p className="mt-3 whitespace-pre-line rounded-[3px] bg-paper px-4 py-3 text-sm text-soot">
           {inviteText}
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -597,13 +597,13 @@ export default function MyDonations() {
             href={whatsappHref(inviteText)}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl bg-green-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-800 min-h-[44px] inline-flex items-center"
+            className="rounded-[3px] bg-moss px-5 py-2.5 text-sm font-semibold text-cream hover:bg-moss min-h-[44px] inline-flex items-center"
           >
             Share on WhatsApp
           </a>
           <button
             onClick={copyInvite}
-            className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+            className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
           >
             {inviteCopied ? "Copied ✓" : "Copy text"}
           </button>
@@ -611,32 +611,32 @@ export default function MyDonations() {
       </section>
 
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-        <div className="rounded-2xl border border-ink-200 bg-white p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">Lifetime donations</p>
-          <p className="tnum mt-1 text-3xl font-bold text-ink-900">{donations.length}</p>
-          <p className="tnum mt-1 text-xs text-ink-500">{totalUnits} unit{totalUnits === 1 ? "" : "s"} given</p>
+        <div className="rounded-[4px] border border-line bg-cream p-5">
+          <p className="text-xs font-semibold uppercase tracking-widest text-faint">Lifetime donations</p>
+          <p className="tnum mt-1 text-3xl font-bold text-ink">{donations.length}</p>
+          <p className="tnum mt-1 text-xs text-faint">{totalUnits} unit{totalUnits === 1 ? "" : "s"} given</p>
         </div>
-        <div className="rounded-2xl border border-ink-200 bg-white p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">Lives touched</p>
-          <p className="tnum mt-1 text-3xl font-bold text-crimson-700">{livesTouched}</p>
-          <p className="mt-1 text-xs text-ink-500">≈ 3 per donation</p>
+        <div className="rounded-[4px] border border-line bg-cream p-5">
+          <p className="text-xs font-semibold uppercase tracking-widest text-faint">Lives touched</p>
+          <p className="tnum mt-1 text-3xl font-bold text-signal">{livesTouched}</p>
+          <p className="mt-1 text-xs text-faint">≈ 3 per donation</p>
         </div>
-        <div className={`rounded-2xl border p-5 ${canDonate ? "border-green-300 bg-green-50" : "border-ink-200 bg-white"}`}>
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">Status</p>
+        <div className={`rounded-[4px] border p-5 ${canDonate ? "border-moss bg-cream" : "border-line bg-cream"}`}>
+          <p className="text-xs font-semibold uppercase tracking-widest text-faint">Status</p>
           {canDonate ? (
-            <p className="mt-1 text-lg font-bold text-green-800">Eligible now</p>
+            <p className="mt-1 text-lg font-bold text-moss">Eligible now</p>
           ) : (
             <>
-              <p className="tnum mt-1 text-lg font-bold text-ink-900">{DONATION_INTERVAL_DAYS - (sinceLast ?? 0)} days to go</p>
-              <p className="mt-1 text-xs text-ink-500">Eligible {nextDate ? formatDate(nextDate.toISOString().slice(0, 10)) : ""}</p>
+              <p className="tnum mt-1 text-lg font-bold text-ink">{DONATION_INTERVAL_DAYS - (sinceLast ?? 0)} days to go</p>
+              <p className="mt-1 text-xs text-faint">Eligible {nextDate ? formatDate(nextDate.toISOString().slice(0, 10)) : ""}</p>
             </>
           )}
         </div>
       </section>
 
-      <section aria-label="Pledge your next donation" className="rounded-2xl border border-ink-200 bg-white p-5">
-        <h2 className="text-sm font-bold text-ink-900">Pledge your next donation</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Pledge your next donation" className="rounded-[4px] border border-line bg-cream p-5">
+        <h2 className="text-sm font-bold text-ink">Pledge your next donation</h2>
+        <p className="mt-1 text-sm text-soot">
           Pick a date and commit. Donors who schedule their next visit are far more likely
           to return — a pledge turns "someday" into a plan.
         </p>
@@ -648,35 +648,35 @@ export default function MyDonations() {
             min={minPledgeDate}
             onChange={(e) => setPledgeDate(e.target.value)}
             aria-label="Pledge date"
-            className="rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]"
+            className="rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]"
           />
           <input
             value={pledgeLocation}
             onChange={(e) => setPledgeLocation(e.target.value)}
             placeholder="Where? e.g. IMA Blood Centre"
             aria-label="Pledge location"
-            className="rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]"
+            className="rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]"
           />
-          <button type="submit" className="rounded-xl bg-ink-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-ink-700 min-h-[44px]">
+          <button type="submit" className="rounded-[3px] bg-ink px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ink min-h-[44px]">
             Pledge
           </button>
         </form>
         {!canDonate && nextIso && (
-          <p className="mt-2 text-xs text-ink-500">
+          <p className="mt-2 text-xs text-faint">
             Earliest pledge date is {formatDate(nextIso)} — when your 90-day interval completes.
           </p>
         )}
         {upcomingPledges.length > 0 && (
           <ul className="mt-4 space-y-2">
             {upcomingPledges.map((p) => (
-              <li key={p.id} className="flex items-center gap-3 rounded-xl bg-ink-50 px-4 py-2.5">
+              <li key={p.id} className="flex items-center gap-3 rounded-[3px] bg-paper px-4 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-ink-900">Pledged for {formatDate(p.forDate)}</p>
-                  {p.location && <p className="truncate text-xs text-ink-500">{p.location}</p>}
+                  <p className="text-sm font-semibold text-ink">Pledged for {formatDate(p.forDate)}</p>
+                  {p.location && <p className="truncate text-xs text-faint">{p.location}</p>}
                 </div>
                 <button
                   onClick={() => removePledge(p.id)}
-                  className="rounded-lg px-3 py-1.5 text-xs font-semibold text-ink-400 hover:bg-crimson-50 hover:text-crimson-700 min-h-[44px]"
+                  className="rounded-[3px] px-3 py-1.5 text-xs font-semibold text-faint hover:bg-cream hover:text-signal min-h-[44px]"
                 >
                   Cancel
                 </button>
@@ -686,11 +686,11 @@ export default function MyDonations() {
         )}
       </section>
 
-      <section aria-label="Your donation journey" className="rounded-2xl border border-ink-200 bg-white p-5">
-        <h2 className="text-sm font-bold text-ink-900">Your donation journey</h2>
+      <section aria-label="Your donation journey" className="rounded-[4px] border border-line bg-cream p-5">
+        <h2 className="text-sm font-bold text-ink">Your donation journey</h2>
         {nextDate ? (
           <>
-            <p className="tnum mt-2 text-sm text-ink-700">
+            <p className="tnum mt-2 text-sm text-soot">
               {canDonate ? (
                 <>You're eligible now — every day you wait is a day blood banks go without your group.</>
               ) : (
@@ -698,9 +698,9 @@ export default function MyDonations() {
               )}
             </p>
             {!canDonate && windowEnd && (
-              <p className="mt-1 text-sm text-ink-600">
+              <p className="mt-1 text-sm text-soot">
                 Best window to book:{" "}
-                <strong className="text-ink-900">
+                <strong className="text-ink">
                   {formatDate(nextIso!)} – {formatDate(windowEnd.toISOString().slice(0, 10))}
                 </strong>
                 . Donating in the first two weeks after eligibility keeps bank stock fresh when it's needed most.
@@ -708,13 +708,13 @@ export default function MyDonations() {
             )}
             {!canDonate && (
               hasReminderForNext ? (
-                <p className="mt-3 rounded-xl bg-green-50 px-4 py-2.5 text-sm font-medium text-green-900 ring-1 ring-inset ring-green-200">
+                <p className="mt-3 rounded-[3px] bg-cream px-4 py-2.5 text-sm font-medium text-moss ring-1 ring-inset ring-line">
                   ✓ Reminder set — we'll nudge you on {formatDate(nextIso!)}.
                 </p>
               ) : (
                 <button
                   onClick={setEligibilityReminder}
-                  className="mt-3 rounded-xl border border-crimson-300 bg-crimson-50 px-4 py-2.5 text-sm font-semibold text-crimson-700 hover:bg-crimson-100 min-h-[44px]"
+                  className="mt-3 rounded-[3px] border border-signal bg-cream px-4 py-2.5 text-sm font-semibold text-signal hover:bg-cream min-h-[44px]"
                 >
                   Remind me when I'm eligible
                 </button>
@@ -722,20 +722,20 @@ export default function MyDonations() {
             )}
           </>
         ) : (
-          <p className="mt-2 text-sm text-ink-600">
+          <p className="mt-2 text-sm text-soot">
             No donations logged yet — log your first one above and we'll track your personal
             90-day rhythm from here, with a nudge the day you're eligible again.
           </p>
         )}
         {upcomingReminders.length > 0 && (
-          <div className="mt-4 border-t border-ink-100 pt-3">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-ink-500">Reminder queue</h3>
+          <div className="mt-4 border-t border-line pt-3">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-faint">Reminder queue</h3>
             <ul className="mt-2 space-y-2">
               {upcomingReminders.map((r) => (
-                <li key={r.id} className="flex items-center gap-3 rounded-xl bg-ink-50 px-4 py-2.5">
+                <li key={r.id} className="flex items-center gap-3 rounded-[3px] bg-paper px-4 py-2.5">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-ink-900">{r.note}</p>
-                    <p className="tnum text-xs text-ink-500">
+                    <p className="truncate text-sm font-semibold text-ink">{r.note}</p>
+                    <p className="tnum text-xs text-faint">
                       {r.snoozedUntil && r.snoozedUntil > todayIso
                         ? `Snoozed until ${formatDate(r.snoozedUntil)}`
                         : `Due ${formatDate(r.forDate)}`}
@@ -743,13 +743,13 @@ export default function MyDonations() {
                   </div>
                   <button
                     onClick={() => snoozeReminder(r)}
-                    className="rounded-lg border border-ink-300 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-white min-h-[44px]"
+                    className="rounded-[3px] border border-line px-3 py-1.5 text-xs font-semibold text-soot hover:bg-cream min-h-[44px]"
                   >
                     Snooze
                   </button>
                   <button
                     onClick={() => removeReminder(r.id)}
-                    className="rounded-lg px-3 py-1.5 text-xs font-semibold text-ink-400 hover:bg-crimson-50 hover:text-crimson-700 min-h-[44px]"
+                    className="rounded-[3px] px-3 py-1.5 text-xs font-semibold text-faint hover:bg-cream hover:text-signal min-h-[44px]"
                   >
                     Cancel
                   </button>
@@ -760,31 +760,31 @@ export default function MyDonations() {
         )}
       </section>
 
-      <section aria-label="Your blood's impact" className="rounded-2xl border border-ink-200 bg-white p-5">
-        <h2 className="text-sm font-bold text-ink-900">Your blood's impact</h2>
+      <section aria-label="Your blood's impact" className="rounded-[4px] border border-line bg-cream p-5">
+        <h2 className="text-sm font-bold text-ink">Your blood's impact</h2>
         {sorted.length > 0 && (
           <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-            <div className="rounded-xl bg-crimson-50 px-2 py-3 ring-1 ring-inset ring-crimson-100">
-              <p className="tnum text-xl font-extrabold text-crimson-700">{sorted.length}</p>
-              <p className="text-[11px] font-medium text-ink-600">donations</p>
+            <div className="rounded-[3px] bg-cream px-2 py-3 ring-1 ring-inset ring-line">
+              <p className="tnum text-xl font-extrabold text-signal">{sorted.length}</p>
+              <p className="text-[11px] font-medium text-soot">donations</p>
             </div>
-            <div className="rounded-xl bg-crimson-50 px-2 py-3 ring-1 ring-inset ring-crimson-100">
-              <p className="tnum text-xl font-extrabold text-crimson-700">{totalUnits}</p>
-              <p className="text-[11px] font-medium text-ink-600">units given</p>
+            <div className="rounded-[3px] bg-cream px-2 py-3 ring-1 ring-inset ring-line">
+              <p className="tnum text-xl font-extrabold text-signal">{totalUnits}</p>
+              <p className="text-[11px] font-medium text-soot">units given</p>
             </div>
-            <div className="rounded-xl bg-crimson-50 px-2 py-3 ring-1 ring-inset ring-crimson-100">
-              <p className="tnum text-xl font-extrabold text-crimson-700">{totalUnits * 3}</p>
-              <p className="text-[11px] font-medium text-ink-600">lives you could touch*</p>
+            <div className="rounded-[3px] bg-cream px-2 py-3 ring-1 ring-inset ring-line">
+              <p className="tnum text-xl font-extrabold text-signal">{totalUnits * 3}</p>
+              <p className="text-[11px] font-medium text-soot">lives you could touch*</p>
             </div>
           </div>
         )}
         {sorted.length > 0 && (
-          <p className="mt-2 text-[11px] text-ink-400">
+          <p className="mt-2 text-[11px] text-faint">
             *One unit can be separated into red cells, plasma and platelets — up to three lives per unit (American Red Cross).
           </p>
         )}
         {completedJourneys.length === 0 ? (
-          <p className="mt-2 text-sm text-ink-600">
+          <p className="mt-2 text-sm text-soot">
             When a logged donation completes its journey, its impact report lands here —
             knowing exactly where your blood went is the nudge that brings donors back.
           </p>
@@ -792,18 +792,18 @@ export default function MyDonations() {
           <>
             <ul className="mt-3 space-y-2">
               {completedJourneys.map((d) => (
-                <li key={d.id} className="rounded-xl bg-green-50 px-4 py-3 ring-1 ring-inset ring-green-200">
-                  <p className="text-sm font-semibold text-green-900">
+                <li key={d.id} className="rounded-[3px] bg-cream px-4 py-3 ring-1 ring-inset ring-line">
+                  <p className="text-sm font-semibold text-moss">
                     Your {formatDate(d.date)} donation ({d.units} unit{d.units === 1 ? "" : "s"}) reached a patient.
                   </p>
-                  <p className="mt-0.5 text-xs text-green-800">
+                  <p className="mt-0.5 text-xs text-moss">
                     Donated at {d.location} · up to {d.units * 3} lives touched. Thank you —
                     this is what the whole network is for.
                   </p>
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-ink-500">
+            <p className="mt-3 text-xs text-faint">
               Tip: a week after donating, call {completedJourneys[0].location} and ask which
               hospital received your unit — donors who hear that answer donate again sooner.
             </p>
@@ -811,17 +811,17 @@ export default function MyDonations() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5">
+      <section className="rounded-[4px] border border-line bg-cream p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-sm font-bold text-ink-900">Milestones</h2>
-          <label className="flex items-center gap-2 text-xs font-medium text-ink-600">
+          <h2 className="text-sm font-bold text-ink">Milestones</h2>
+          <label className="flex items-center gap-2 text-xs font-medium text-soot">
             Certificate name
             <input
               value={myName}
               onChange={(e) => { setMyName(e.target.value); writeMyName(e.target.value); }}
               placeholder="e.g. Arun Kumar"
               aria-label="Your name as it should appear on certificates"
-              className="w-40 rounded-lg border border-ink-300 px-2.5 py-1.5 text-sm min-h-[44px]"
+              className="w-40 rounded-[3px] border border-line px-2.5 py-1.5 text-sm min-h-[44px]"
             />
           </label>
         </div>
@@ -829,15 +829,15 @@ export default function MyDonations() {
           {MILESTONE_TIERS.map((m) => {
             const earned = donations.length >= m.n;
             return (
-              <div key={m.n} className={`rounded-xl border p-3 text-center ${earned ? "border-crimson-300 bg-crimson-50" : "border-ink-200 bg-ink-50 opacity-60"}`}>
-                <p className={`tnum text-2xl font-bold ${earned ? "text-crimson-700" : "text-ink-400"}`}>{m.n}</p>
-                <p className="text-xs font-bold text-ink-900">{m.label}</p>
-                <p className="mt-1 text-[11px] leading-snug text-ink-500">{earned ? m.desc : `${m.n - donations.length} to go`}</p>
+              <div key={m.n} className={`rounded-[3px] border p-3 text-center ${earned ? "border-signal bg-cream" : "border-line bg-paper opacity-60"}`}>
+                <p className={`tnum text-2xl font-bold ${earned ? "text-signal" : "text-faint"}`}>{m.n}</p>
+                <p className="text-xs font-bold text-ink">{m.label}</p>
+                <p className="mt-1 text-[11px] leading-snug text-faint">{earned ? m.desc : `${m.n - donations.length} to go`}</p>
                 {earned && (
                   <div className="mt-2 flex flex-col gap-1.5">
                     <Link
                       href={`/me/certificate?n=${m.n}`}
-                      className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-white px-3 py-1 text-[11px] font-bold text-ink-800 ring-1 ring-inset ring-ink-300 hover:bg-ink-50"
+                      className="inline-flex min-h-[44px] items-center justify-center rounded-[3px] bg-cream px-3 py-1 text-[11px] font-bold text-ink ring-1 ring-inset ring-line hover:bg-paper"
                     >
                       Print certificate
                     </Link>
@@ -845,7 +845,7 @@ export default function MyDonations() {
                       href={whatsappHref(buildBadgeShareText(m, donations.length))}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-white px-3 py-1 text-[11px] font-bold text-crimson-700 ring-1 ring-inset ring-crimson-200 hover:bg-crimson-100"
+                      className="inline-flex min-h-[44px] items-center justify-center rounded-[3px] bg-cream px-3 py-1 text-[11px] font-bold text-signal ring-1 ring-inset ring-signal hover:bg-cream"
                     >
                       Share badge
                     </a>
@@ -857,30 +857,30 @@ export default function MyDonations() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5">
-        <h2 className="text-sm font-bold text-ink-900">Log a donation</h2>
+      <section className="rounded-[4px] border border-line bg-cream p-5">
+        <h2 className="text-sm font-bold text-ink">Log a donation</h2>
         <form onSubmit={log} className="mt-3 grid gap-3 sm:grid-cols-[1fr_100px_1fr_auto]">
-          <input type="date" required value={date} max={new Date().toISOString().slice(0, 10)} onChange={(e) => setDate(e.target.value)} aria-label="Donation date" className="rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
-          <input type="number" min={1} max={4} value={units} onChange={(e) => setUnits(Number(e.target.value))} aria-label="Units" className="rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
-          <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Where? e.g. Saveetha Blood Centre" aria-label="Donation location" className="rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
-          <button type="submit" className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]">Log</button>
+          <input type="date" required value={date} max={new Date().toISOString().slice(0, 10)} onChange={(e) => setDate(e.target.value)} aria-label="Donation date" className="rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
+          <input type="number" min={1} max={4} value={units} onChange={(e) => setUnits(Number(e.target.value))} aria-label="Units" className="rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
+          <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Where? e.g. Saveetha Blood Centre" aria-label="Donation location" className="rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
+          <button type="submit" className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]">Log</button>
         </form>
       </section>
 
       <section>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-sm font-bold text-ink-900">History</h2>
+          <h2 className="text-sm font-bold text-ink">History</h2>
           {sorted.length > 0 && (
             <div className="flex gap-2 print:hidden">
               <button
                 onClick={downloadCsv}
-                className="rounded-lg border border-ink-300 px-3.5 py-1.5 text-xs font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+                className="rounded-[3px] border border-line px-3.5 py-1.5 text-xs font-semibold text-ink hover:bg-paper min-h-[44px]"
               >
                 Download CSV
               </button>
               <button
                 onClick={() => window.print()}
-                className="rounded-lg border border-ink-300 px-3.5 py-1.5 text-xs font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+                className="rounded-[3px] border border-line px-3.5 py-1.5 text-xs font-semibold text-ink hover:bg-paper min-h-[44px]"
               >
                 Print record
               </button>
@@ -888,8 +888,8 @@ export default function MyDonations() {
           )}
         </div>
         <div className="mb-4 hidden print:block">
-          <p className="text-lg font-bold text-ink-900">Raktha — My donation record</p>
-          <p className="text-xs text-ink-600">
+          <p className="text-lg font-bold text-ink">Raktha — My donation record</p>
+          <p className="text-xs text-soot">
             {sorted.length} donation{sorted.length === 1 ? "" : "s"} · {totalUnits} unit{totalUnits === 1 ? "" : "s"} given · printed {new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
           </p>
         </div>
@@ -900,31 +900,31 @@ export default function MyDonations() {
             {sorted.map((d) => {
               const stage = Math.min(d.journey ?? 0, JOURNEY_STAGES.length - 1);
               return (
-                <li key={d.id} className="rounded-xl border border-ink-200 bg-white px-4 py-3">
+                <li key={d.id} className="rounded-[3px] border border-line bg-cream px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-crimson-50 text-sm font-bold text-crimson-700 tnum" aria-hidden="true">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-[3px] bg-cream text-sm font-bold text-signal tnum" aria-hidden="true">
                       {d.units}u
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-ink-900">{formatDate(d.date)}</p>
-                      <p className="truncate text-xs text-ink-500">{d.location}</p>
+                      <p className="text-sm font-semibold text-ink">{formatDate(d.date)}</p>
+                      <p className="truncate text-xs text-faint">{d.location}</p>
                     </div>
-                    <button onClick={() => removeDonation(d.id)} className="rounded-lg px-3 py-1.5 text-xs font-semibold text-ink-400 hover:bg-crimson-50 hover:text-crimson-700 min-h-[44px]">
+                    <button onClick={() => removeDonation(d.id)} className="rounded-[3px] px-3 py-1.5 text-xs font-semibold text-faint hover:bg-cream hover:text-signal min-h-[44px]">
                       Remove
                     </button>
                   </div>
-                  <div className="mt-3 border-t border-ink-100 pt-3">
+                  <div className="mt-3 border-t border-line pt-3">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-xs font-semibold text-ink-700" aria-live="polite">
+                      <p className="text-xs font-semibold text-soot" aria-live="polite">
                         Journey: {JOURNEY_STAGES[stage]}
                         {stage === JOURNEY_STAGES.length - 1 && (
-                          <span className="ml-1 text-crimson-700">— a life touched.</span>
+                          <span className="ml-1 text-signal">— a life touched.</span>
                         )}
                       </p>
                       {stage < JOURNEY_STAGES.length - 1 && (
                         <button
                           onClick={() => updateDonation(d.id, { journey: stage + 1 })}
-                          className="shrink-0 rounded-lg border border-ink-300 px-3 py-1.5 text-xs font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+                          className="shrink-0 rounded-[3px] border border-line px-3 py-1.5 text-xs font-semibold text-ink hover:bg-paper min-h-[44px]"
                         >
                           Next: {JOURNEY_STAGES[stage + 1]}
                         </button>
@@ -933,13 +933,13 @@ export default function MyDonations() {
                     <div className="mt-2 flex gap-1.5" role="img" aria-label={`Journey stage ${stage + 1} of ${JOURNEY_STAGES.length}: ${JOURNEY_STAGES[stage]}`}>
                       {JOURNEY_STAGES.map((s, i) => (
                         <div key={s} className="flex-1">
-                          <div className={`h-1.5 rounded-full ${i <= stage ? "bg-crimson-600" : "bg-ink-100"}`} />
-                          <p className={`mt-1 hidden text-[10px] leading-tight sm:block ${i <= stage ? "font-semibold text-ink-800" : "text-ink-400"}`}>{s}</p>
+                          <div className={`h-1.5 rounded-full ${i <= stage ? "bg-signal" : "bg-sand"}`} />
+                          <p className={`mt-1 hidden text-[10px] leading-tight sm:block ${i <= stage ? "font-semibold text-ink" : "text-faint"}`}>{s}</p>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="mt-3 border-t border-ink-100 pt-3">
+                  <div className="mt-3 border-t border-line pt-3">
                     <DonationVitalsPanel
                       donation={d}
                       onSave={(vitals) => updateDonation(d.id, { vitals })}

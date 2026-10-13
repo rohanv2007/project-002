@@ -317,3 +317,11 @@ donation milestones, lifesaving teams + leaderboard, history export.
 ## Cycle 78 — 05:02 IST (watchdog recovery)
 - Print flyer tear-off contact strips: a row of dashed-border tear-off tabs under the flyer with the contact number, blood group, and "Blood needed" header — the classic noticeboard trick so a passerby tears one off and keeps the number. Vertical phone on narrow screens, horizontal on wide; prints on the same page. Build passes.
 - Deployed: no
+
+## Cycle 79 — 00:41 IST (watchdog recovery)
+- Patient loop closure on the request form: when a request is posted from a patient profile (`?patient=<id>`), the form now remembers the patient and shows a "Next transfusion after this one" interval select (2/3/4/6/8 weeks, default 3). On submit it advances the patient's `nextDue` by that interval — previously the profile stayed "overdue" and the home banner kept nagging even after the request was posted. Build passes (20 routes).
+- Deployed: no
+
+## Cycle 80 — 00:41 IST (watchdog recovery)
+- Configurable "Mark done" interval on the patients page: the hardcoded 21-day next-due button is replaced by a per-patient interval select (2/3/4/6/8 weeks, default 3) — transfusion cycles genuinely vary (thalassemia ~3 weeks, dialysis ~4–6), and the old hardcode silently scheduled the next reminder wrong for everyone else. Build passes (20 routes).
+- Deployed: no
