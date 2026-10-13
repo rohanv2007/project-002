@@ -58,7 +58,7 @@ export default function SosStudio() {
         title="Request not found"
         body="This request may have been removed, or the link is wrong."
         action={
-          <Link href="/requests" className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white">
+          <Link href="/requests" className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream">
             Back to requests
           </Link>
         }
@@ -76,71 +76,71 @@ export default function SosStudio() {
         subtitle={`The emergency forward for ${request.patientName}'s request — generated live, so pledge counts and expiry stay accurate.`}
       />
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
+      <section className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <GroupBadge group={request.group} />
           <UrgencyBadge urgency={request.urgency} />
           <span
-            className={`rounded-md px-2 py-0.5 text-xs font-semibold ${
-              expired ? "bg-ink-100 text-ink-600" : "bg-green-100 text-green-900"
+            className={`rounded-[3px] px-2 py-0.5 text-xs font-semibold ${
+              expired ? "bg-sand text-soot" : "bg-cream text-moss"
             }`}
           >
             {expired ? "Closed" : "Live"}
           </span>
         </div>
 
-        <h2 className="mt-4 text-sm font-bold text-ink-900">Message preview</h2>
-        <pre className="mt-2 max-h-72 overflow-y-auto whitespace-pre-wrap rounded-xl bg-ink-50 p-4 text-sm leading-relaxed text-ink-800">
+        <h2 className="mt-4 text-sm font-bold text-ink">Message preview</h2>
+        <pre className="mt-2 max-h-72 overflow-y-auto whitespace-pre-wrap rounded-[3px] bg-paper p-4 text-sm leading-relaxed text-ink">
           {text}
         </pre>
 
-        <h2 className="mt-5 text-sm font-bold text-ink-900">Send it</h2>
+        <h2 className="mt-5 text-sm font-bold text-ink">Send it</h2>
         <div className="mt-2 grid gap-2 sm:grid-cols-3">
           <a
             href={whatsappHref(text)}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl bg-crimson-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center justify-center"
+            className="rounded-[3px] bg-signal px-4 py-2.5 text-center text-sm font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center justify-center"
           >
             WhatsApp
           </a>
           <a
             href={smsHref(text)}
-            className="rounded-xl border border-ink-300 px-4 py-2.5 text-center text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px] inline-flex items-center justify-center"
+            className="rounded-[3px] border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink hover:bg-paper min-h-[44px] inline-flex items-center justify-center"
           >
             SMS
           </a>
           <button
             onClick={() => copyText(text, setCopied)}
-            className="rounded-xl border border-ink-300 px-4 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+            className="rounded-[3px] border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
             aria-live="polite"
           >
             {copied ? "✓ Copied" : "Copy message"}
           </button>
         </div>
-        <p className="mt-2 text-xs text-ink-500">
+        <p className="mt-2 text-xs text-faint">
           WhatsApp opens a pre-filled forward — drop it into every donor group you're in. SMS works when data doesn't.
         </p>
         <button
           onClick={() => window.print()}
-          className="mt-3 w-full rounded-xl border border-ink-300 px-4 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+          className="mt-3 w-full rounded-[3px] border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
         >
           Print emergency poster
         </button>
-        <p className="mt-2 text-xs text-ink-500">
+        <p className="mt-2 text-xs text-faint">
           A bold one-page poster for hospital notice boards and blood bank counters — for donors who never see the WhatsApp forward.
         </p>
       </section>
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-sm font-bold text-ink-900">Phone script</h2>
-        <p className="mt-1 text-xs text-ink-500">
+      <section className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="text-sm font-bold text-ink">Phone script</h2>
+        <p className="mt-1 text-xs text-faint">
           Calling matched donors one by one? Say this — it keeps every call consistent and calm.
         </p>
-        <p className="mt-3 rounded-xl bg-ink-50 p-4 text-sm leading-relaxed text-ink-800">{script}</p>
+        <p className="mt-3 rounded-[3px] bg-paper p-4 text-sm leading-relaxed text-ink">{script}</p>
         <button
           onClick={() => copyText(script, setScriptCopied)}
-          className="mt-3 rounded-xl border border-ink-300 px-4 py-2 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+          className="mt-3 rounded-[3px] border border-line px-4 py-2 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
           aria-live="polite"
         >
           {scriptCopied ? "✓ Copied" : "Copy script"}
@@ -149,7 +149,7 @@ export default function SosStudio() {
 
       <Link
         href={`/requests/${request.id}`}
-        className="inline-block rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+        className="inline-block rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
       >
         ← Back to request
       </Link>

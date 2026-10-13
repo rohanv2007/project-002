@@ -25,6 +25,10 @@ export default function Patients() {
   const [area, setArea] = useState("");
   const [nextDue, setNextDue] = useState("");
   const [showForm, setShowForm] = useState(false);
+  // Per-patient "mark done" interval — transfusion cycles genuinely vary
+  // (thalassemia ~3 weeks, dialysis ~4–6), so the 21-day hardcode was wrong.
+  const [dueWeeks, setDueWeeks] = useState<Record<string, number>>({});
+  const weeksFor = (id: string) => dueWeeks[id] ?? 3;
 
   const sorted = useMemo(
     () =>
@@ -69,21 +73,21 @@ export default function Patients() {
 
       <button
         onClick={() => setShowForm((s) => !s)}
-        className="w-full rounded-xl border-2 border-dashed border-ink-300 bg-white px-5 py-3.5 text-sm font-semibold text-ink-700 hover:border-crimson-400 hover:text-crimson-700 min-h-[44px]"
+        className="w-full rounded-[3px] border-2 border-dashed border-line bg-cream px-5 py-3.5 text-sm font-semibold text-soot hover:border-signal hover:text-signal min-h-[44px]"
       >
         {showForm ? "Close form" : "+ Add a patient profile"}
       </button>
 
       {showForm && (
-        <form onSubmit={submit} className="space-y-4 rounded-2xl border border-ink-200 bg-white p-5">
+        <form onSubmit={submit} className="space-y-4 rounded-[4px] border border-line bg-cream p-5">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">Patient name</span>
-              <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. K. Meena" className="w-full rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-faint">Patient name</span>
+              <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. K. Meena" className="w-full rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">Blood group</span>
-              <select value={group} onChange={(e) => setGroup(e.target.value as BloodGroup)} className="w-full rounded-xl border border-ink-300 bg-white px-3 py-2.5 text-sm min-h-[44px]">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-faint">Blood group</span>
+              <select value={group} onChange={(e) => setGroup(e.target.value as BloodGroup)} className="w-full rounded-[3px] border border-line bg-cream px-3 py-2.5 text-sm min-h-[44px]">
                 {BLOOD_GROUPS.map((g) => (
                   <option key={g} value={g}>{g}{isRare(g) ? " — rare" : ""}</option>
                 ))}
@@ -92,27 +96,27 @@ export default function Patients() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">Condition</span>
-              <select value={condition} onChange={(e) => setCondition(e.target.value)} className="w-full rounded-xl border border-ink-300 bg-white px-3 py-2.5 text-sm min-h-[44px]">
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-faint">Condition</span>
+              <select value={condition} onChange={(e) => setCondition(e.target.value)} className="w-full rounded-[3px] border border-line bg-cream px-3 py-2.5 text-sm min-h-[44px]">
                 {CONDITIONS.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">Next transfusion due</span>
-              <input type="date" value={nextDue} min={new Date().toISOString().slice(0, 10)} onChange={(e) => setNextDue(e.target.value)} className="w-full rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-faint">Next transfusion due</span>
+              <input type="date" value={nextDue} min={new Date().toISOString().slice(0, 10)} onChange={(e) => setNextDue(e.target.value)} className="w-full rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
             </label>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">Hospital</span>
-              <input required value={hospital} onChange={(e) => setHospital(e.target.value)} placeholder="e.g. Govt. Hospital, Sriperumbudur" className="w-full rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-faint">Hospital</span>
+              <input required value={hospital} onChange={(e) => setHospital(e.target.value)} placeholder="e.g. Govt. Hospital, Sriperumbudur" className="w-full rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">Area / locality</span>
-              <input value={area} onChange={(e) => setArea(e.target.value)} placeholder="e.g. Thandalam" className="w-full rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]" />
+              <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-faint">Area / locality</span>
+              <input value={area} onChange={(e) => setArea(e.target.value)} placeholder="e.g. Thandalam" className="w-full rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]" />
             </label>
           </div>
-          <button type="submit" className="w-full rounded-xl bg-crimson-600 px-6 py-3 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]">
+          <button type="submit" className="w-full rounded-[3px] bg-signal px-6 py-3 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]">
             Save patient profile
           </button>
         </form>
@@ -130,14 +134,14 @@ export default function Patients() {
             const d = p.nextDue ? daysUntil(p.nextDue) : null;
             const dueSoon = d !== null && d <= 7;
             return (
-              <li key={p.id} className={`rounded-2xl border bg-white p-4 ${dueSoon ? "border-amber-300" : "border-ink-200"}`}>
+              <li key={p.id} className={`rounded-[4px] border bg-cream p-4 ${dueSoon ? "border-line" : "border-line"}`}>
                 <div className="flex items-start gap-3">
                   <GroupBadge group={p.group} />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-ink-900">{p.name}</p>
-                    <p className="text-xs text-ink-500">{p.condition} · {p.hospital}{p.area ? `, ${p.area}` : ""}</p>
+                    <p className="text-sm font-semibold text-ink">{p.name}</p>
+                    <p className="text-xs text-faint">{p.condition} · {p.hospital}{p.area ? `, ${p.area}` : ""}</p>
                     {p.nextDue && (
-                      <p className={`mt-1 text-xs font-semibold ${dueSoon ? "text-amber-800" : "text-ink-600"}`}>
+                      <p className={`mt-1 text-xs font-semibold ${dueSoon ? "text-gold" : "text-soot"}`}>
                         {d! < 0
                           ? `Was due ${formatDate(p.nextDue)} — overdue`
                           : d === 0
@@ -152,19 +156,31 @@ export default function Patients() {
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
                     href={`/request?patient=${p.id}`}
-                    className="rounded-lg bg-crimson-600 px-4 py-2 text-xs font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center"
+                    className="rounded-[3px] bg-signal px-4 py-2 text-xs font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center"
                   >
                     New request for {p.name.split(" ")[0]}
                   </Link>
-                  <button
-                    onClick={() => pushDue(p.id, 21)}
-                    className="rounded-lg border border-ink-300 px-4 py-2 text-xs font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
-                  >
-                    Mark done — next in 3 weeks
-                  </button>
+                  <span className="inline-flex items-center gap-1.5 rounded-[3px] border border-line py-1 pl-3 pr-1">
+                    <button
+                      onClick={() => pushDue(p.id, weeksFor(p.id) * 7)}
+                      className="min-h-[44px] rounded px-1 py-2 text-xs font-semibold text-ink hover:bg-paper"
+                    >
+                      Mark done — next in
+                    </button>
+                    <select
+                      value={weeksFor(p.id)}
+                      onChange={(e) => setDueWeeks((m) => ({ ...m, [p.id]: Number(e.target.value) }))}
+                      aria-label={`Weeks until ${p.name}'s next transfusion`}
+                      className="min-h-[44px] rounded-[3px] border border-line bg-cream px-1.5 py-1.5 text-xs font-semibold"
+                    >
+                      {[2, 3, 4, 6, 8].map((w) => (
+                        <option key={w} value={w}>{w} wk</option>
+                      ))}
+                    </select>
+                  </span>
                   <button
                     onClick={() => { if (window.confirm(`Remove ${p.name}'s profile?`)) removePatient(p.id); }}
-                    className="rounded-lg px-3 py-2 text-xs font-semibold text-ink-400 hover:bg-crimson-50 hover:text-crimson-700 min-h-[44px]"
+                    className="rounded-[3px] px-3 py-2 text-xs font-semibold text-faint hover:bg-cream hover:text-signal min-h-[44px]"
                   >
                     Remove
                   </button>

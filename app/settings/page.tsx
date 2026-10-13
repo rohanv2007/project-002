@@ -114,33 +114,33 @@ export default function Settings() {
         subtitle="Your data, your browser, your call."
       />
 
-      <section aria-label="Data controls" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Data controls</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Data controls" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Data controls</h2>
+        <p className="mt-1 text-sm text-soot">
           Raktha is local-first: donors, requests, and banks live only in this browser's storage.
         </p>
 
         <div className="mt-5 space-y-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-semibold text-ink-900">Export everything</p>
-              <p className="text-xs text-ink-500">Download all your Raktha data as one JSON file.</p>
+              <p className="text-sm font-semibold text-ink">Export everything</p>
+              <p className="text-xs text-faint">Download all your Raktha data as one JSON file.</p>
             </div>
             <button
               onClick={exportAll}
-              className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+              className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
             >
               Export JSON
             </button>
           </div>
 
-          <div className="border-t border-ink-100 pt-4">
+          <div className="border-t border-line pt-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm font-semibold text-ink-900">Import backup</p>
-                <p className="text-xs text-ink-500">Restore from a Raktha export file — new phone, or after a browser-data wipe.</p>
+                <p className="text-sm font-semibold text-ink">Import backup</p>
+                <p className="text-xs text-faint">Restore from a Raktha export file — new phone, or after a browser-data wipe.</p>
               </div>
-              <label className="inline-flex min-h-[44px] cursor-pointer items-center rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50">
+              <label className="inline-flex min-h-[44px] cursor-pointer items-center rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper">
                 Choose file
                 <input
                   type="file"
@@ -155,31 +155,31 @@ export default function Settings() {
               </label>
             </div>
             {importResult && (
-              <p role="status" className="mt-3 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-900 ring-1 ring-inset ring-green-200">
+              <p role="status" className="mt-3 rounded-[3px] bg-cream px-4 py-3 text-sm font-medium text-moss ring-1 ring-inset ring-line">
                 {importResult}
               </p>
             )}
             {importError && (
-              <p role="alert" className="mt-3 rounded-xl bg-crimson-50 px-4 py-3 text-sm font-medium text-crimson-800 ring-1 ring-inset ring-crimson-200">
+              <p role="alert" className="mt-3 rounded-[3px] bg-cream px-4 py-3 text-sm font-medium text-ember ring-1 ring-inset ring-signal">
                 {importError}
               </p>
             )}
           </div>
 
-          <div className="border-t border-ink-100 pt-4">
+          <div className="border-t border-line pt-4">
             {confirmReseed ? (
-              <div className="rounded-xl bg-amber-50 p-4 ring-1 ring-inset ring-amber-200">
-                <p className="text-sm font-semibold text-amber-900">
+              <div className="rounded-[3px] bg-cream p-4 ring-1 ring-inset ring-line">
+                <p className="text-sm font-semibold text-gold">
                   Replace everything with fresh demo data?
                 </p>
-                <p className="mt-1 text-xs text-amber-800">
+                <p className="mt-1 text-xs text-gold">
                   Your current donors, requests, and donations will be overwritten.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <button onClick={reseed} className="rounded-xl bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700 min-h-[44px]">
+                  <button onClick={reseed} className="rounded-[3px] bg-gold px-4 py-2 text-sm font-semibold text-cream hover:bg-gold min-h-[44px]">
                     Yes, reload demo data
                   </button>
-                  <button onClick={() => setConfirmReseed(false)} className="rounded-xl border border-amber-300 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-100 min-h-[44px]">
+                  <button onClick={() => setConfirmReseed(false)} className="rounded-[3px] border border-line px-4 py-2 text-sm font-semibold text-gold hover:bg-cream min-h-[44px]">
                     Keep my data
                   </button>
                 </div>
@@ -187,12 +187,12 @@ export default function Settings() {
             ) : (
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-ink-900">Reload demo data</p>
-                  <p className="text-xs text-ink-500">Start over with the original sample donors, requests, and camps.</p>
+                  <p className="text-sm font-semibold text-ink">Reload demo data</p>
+                  <p className="text-xs text-faint">Start over with the original sample donors, requests, and camps.</p>
                 </div>
                 <button
                   onClick={() => setConfirmReseed(true)}
-                  className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50 min-h-[44px]"
+                  className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper min-h-[44px]"
                 >
                   Reload demo data
                 </button>
@@ -200,20 +200,20 @@ export default function Settings() {
             )}
           </div>
 
-          <div className="border-t border-ink-100 pt-4">
+          <div className="border-t border-line pt-4">
             {confirmReset ? (
-              <div className="rounded-xl bg-crimson-50 p-4 ring-1 ring-inset ring-crimson-200">
-                <p className="text-sm font-semibold text-crimson-900">
+              <div className="rounded-[3px] bg-cream p-4 ring-1 ring-inset ring-signal">
+                <p className="text-sm font-semibold text-ember">
                   Delete ALL Raktha data from this browser?
                 </p>
-                <p className="mt-1 text-xs text-crimson-800">
+                <p className="mt-1 text-xs text-ember">
                   This cannot be undone. Export first if you want a copy.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <button onClick={resetAll} className="rounded-xl bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]">
+                  <button onClick={resetAll} className="rounded-[3px] bg-signal px-4 py-2 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]">
                     Yes, delete everything
                   </button>
-                  <button onClick={() => setConfirmReset(false)} className="rounded-xl border border-crimson-300 px-4 py-2 text-sm font-semibold text-crimson-900 hover:bg-crimson-100 min-h-[44px]">
+                  <button onClick={() => setConfirmReset(false)} className="rounded-[3px] border border-signal px-4 py-2 text-sm font-semibold text-ember hover:bg-cream min-h-[44px]">
                     Cancel
                   </button>
                 </div>
@@ -221,12 +221,12 @@ export default function Settings() {
             ) : (
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-ink-900">Reset all data</p>
-                  <p className="text-xs text-ink-500">Wipe donors, requests, donations, reminders, and everything else.</p>
+                  <p className="text-sm font-semibold text-ink">Reset all data</p>
+                  <p className="text-xs text-faint">Wipe donors, requests, donations, reminders, and everything else.</p>
                 </div>
                 <button
                   onClick={() => setConfirmReset(true)}
-                  className="rounded-xl border border-crimson-300 px-5 py-2.5 text-sm font-semibold text-crimson-700 hover:bg-crimson-50 min-h-[44px]"
+                  className="rounded-[3px] border border-signal px-5 py-2.5 text-sm font-semibold text-signal hover:bg-cream min-h-[44px]"
                 >
                   Reset all data
                 </button>
@@ -236,19 +236,19 @@ export default function Settings() {
         </div>
       </section>
 
-      <section aria-label="Privacy" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Privacy</h2>
-        <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-ink-600">
+      <section aria-label="Privacy" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Privacy</h2>
+        <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-soot">
           <li>No account, no sign-in, no server — everything stays in this browser.</li>
           <li>Nothing is uploaded, tracked, or shared unless you tap Share or Copy.</li>
           <li>Clearing this site's browser data removes all Raktha data with it.</li>
         </ul>
       </section>
 
-      <section aria-label="About" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">About</h2>
-        <p className="mt-2 text-sm text-ink-600">
-          <strong className="text-ink-900">Project 002 · Raktha — Emergency Blood Donor Network.</strong>{" "}
+      <section aria-label="About" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">About</h2>
+        <p className="mt-2 text-sm text-soot">
+          <strong className="text-ink">Project 002 · Raktha — Emergency Blood Donor Network.</strong>{" "}
           A calm, fast, local-first network: register donors once, screen eligibility honestly,
           post a request in under a minute, and call the right donors before it's too late.
         </p>

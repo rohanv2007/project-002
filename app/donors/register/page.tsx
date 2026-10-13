@@ -56,14 +56,14 @@ export default function RegisterDonor() {
         title="Register as a donor"
         subtitle="One registration puts you on the map for every emergency request near you. You control your availability — pause anytime."
       />
-      <form onSubmit={submit} className="space-y-5 rounded-2xl border border-ink-200 bg-white p-5 sm:p-8">
+      <form onSubmit={submit} className="space-y-5 rounded-[4px] border border-line bg-cream p-5 sm:p-8">
         {error && (
-          <p role="alert" className="rounded-xl bg-crimson-50 px-4 py-3 text-sm font-medium text-crimson-800 ring-1 ring-inset ring-crimson-200">
+          <p role="alert" className="rounded-[3px] bg-cream px-4 py-3 text-sm font-medium text-ember ring-1 ring-inset ring-signal">
             {error}
           </p>
         )}
         {duplicate && (
-          <p role="status" className="rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900 ring-1 ring-inset ring-amber-200">
+          <p role="status" className="rounded-[3px] bg-cream px-4 py-3 text-sm text-gold ring-1 ring-inset ring-line">
             This number is already registered for <span className="font-semibold">{duplicate.name}</span> ({duplicate.group}, {duplicate.area}).{" "}
             <Link href="/donors" className="font-semibold underline">View in directory</Link> instead of registering again.
           </p>
@@ -97,35 +97,35 @@ export default function RegisterDonor() {
             ))}
           </select>
         </Field>
-        <label className="flex cursor-pointer items-start gap-3 rounded-xl bg-ink-50 px-4 py-3">
+        <label className="flex cursor-pointer items-start gap-3 rounded-[3px] bg-paper px-4 py-3">
           <input
             type="checkbox"
             checked={available}
             onChange={(e) => setAvailable(e.target.checked)}
-            className="mt-1 h-5 w-5 rounded accent-[#b91c2e]"
+            className="mt-1 h-5 w-5 rounded accent-[#c93e1c]"
           />
           <span>
-            <span className="block text-sm font-medium text-ink-900">I'm available for emergency calls</span>
-            <span className="block text-xs text-ink-500">Turn this off anytime — you won't appear in emergency matches while paused.</span>
+            <span className="block text-sm font-medium text-ink">I'm available for emergency calls</span>
+            <span className="block text-xs text-faint">Turn this off anytime — you won't appear in emergency matches while paused.</span>
           </span>
         </label>
-        <label className="flex cursor-pointer items-start gap-3 rounded-xl bg-ink-50 px-4 py-3">
+        <label className="flex cursor-pointer items-start gap-3 rounded-[3px] bg-paper px-4 py-3">
           <input
             type="checkbox"
             checked={openToApheresis}
             onChange={(e) => setOpenToApheresis(e.target.checked)}
-            className="mt-1 h-5 w-5 rounded accent-[#b91c2e]"
+            className="mt-1 h-5 w-5 rounded accent-[#c93e1c]"
           />
           <span>
-            <span className="block text-sm font-medium text-ink-900">I'm open to platelet / plasma donation</span>
-            <span className="block text-xs text-ink-500">Apheresis at the blood bank (60–90 min). You'll be spotlighted when a request needs platelets or plasma.</span>
+            <span className="block text-sm font-medium text-ink">I'm open to platelet / plasma donation</span>
+            <span className="block text-xs text-faint">Apheresis at the blood bank (60–90 min). You'll be spotlighted when a request needs platelets or plasma.</span>
           </span>
         </label>
-        <button type="submit" className="w-full rounded-xl bg-crimson-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-crimson-700">
+        <button type="submit" className="w-full rounded-[3px] bg-signal px-6 py-3.5 text-sm font-semibold text-cream hover:bg-ember">
           Register donor
         </button>
-        <p className="text-center text-xs text-ink-500">
-          Not sure you can donate? <a href="/eligibility" className="font-semibold text-crimson-700 hover:underline">Take the 2-minute eligibility check</a> first.
+        <p className="text-center text-xs text-faint">
+          Not sure you can donate? <a href="/eligibility" className="font-semibold text-signal hover:underline">Take the 2-minute eligibility check</a> first.
         </p>
       </form>
     </div>

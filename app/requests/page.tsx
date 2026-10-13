@@ -110,15 +110,15 @@ export default function RequestsBoard() {
       />
 
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <div className="flex rounded-xl bg-ink-100 p-1" role="tablist" aria-label="Request status">
+        <div className="flex rounded-[3px] bg-sand p-1" role="tablist" aria-label="Request status">
           {tabs.map((t) => (
             <button
               key={t.id}
               role="tab"
               aria-selected={tab === t.id}
               onClick={() => setTab(t.id)}
-              className={`rounded-lg px-4 py-2 text-sm font-semibold min-h-[44px] ${
-                tab === t.id ? "bg-white text-ink-900 shadow-sm" : "text-ink-500 hover:text-ink-800"
+              className={`rounded-[3px] px-4 py-2 text-sm font-semibold min-h-[44px] ${
+                tab === t.id ? "bg-cream text-ink shadow-sm" : "text-faint hover:text-ink"
               }`}
             >
               {t.label}
@@ -129,7 +129,7 @@ export default function RequestsBoard() {
           aria-label="Filter by blood group"
           value={group}
           onChange={(e) => setGroup(e.target.value as BloodGroup | "all")}
-          className="rounded-xl border border-ink-300 bg-white px-3 py-2 text-sm font-medium min-h-[44px]"
+          className="rounded-[3px] border border-line bg-cream px-3 py-2 text-sm font-medium min-h-[44px]"
         >
           <option value="all">All groups</option>
           {BLOOD_GROUPS.map((g) => (
@@ -142,7 +142,7 @@ export default function RequestsBoard() {
           placeholder="Search hospital, area, patient…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full rounded-xl border border-ink-300 bg-white px-3.5 py-2 text-sm text-ink-900 placeholder:text-ink-400 focus:border-crimson-500 focus:outline-none focus:ring-1 focus:ring-crimson-500 min-h-[44px] sm:w-56"
+          className="w-full rounded-[3px] border border-line bg-cream px-3.5 py-2 text-sm text-ink placeholder:text-faint focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal min-h-[44px] sm:w-56"
         />
       </div>
 
@@ -155,7 +155,7 @@ export default function RequestsBoard() {
           kind={tab === "open" ? "flag" : "search"}
           title={tab === "open" ? "No open requests" : `No ${tab} requests`}
           body={tab === "open" ? "Quiet right now — that's good news. When an emergency lands, it will appear here first." : "No requests here — the fulfilled ones went to patients, which is the whole point."}
-          action={tab === "open" ? <Link href="/request" className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white">Post a request</Link> : undefined}
+          action={tab === "open" ? <Link href="/request" className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream">Post a request</Link> : undefined}
         />
       ) : (
         <ul className="space-y-3">
@@ -170,22 +170,22 @@ export default function RequestsBoard() {
             <li key={r.id}>
               <Link
                 href={`/requests/${r.id}`}
-                className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white px-4 py-4 hover:border-crimson-300 hover:bg-crimson-50/40"
+                className="flex items-center gap-3 rounded-[4px] border border-line bg-cream px-4 py-4 hover:border-signal hover:bg-cream/40"
               >
                 <GroupBadge group={r.group} />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {r.patientName} · {r.units} unit{r.units > 1 ? "s" : ""}
                   </p>
-                  <p className="truncate text-xs text-ink-500">
+                  <p className="truncate text-xs text-faint">
                     {r.hospital}, {r.area} · {timeAgo(r.createdAt)}
                     {until && (
-                      <span className={`font-semibold ${until.urgent ? "text-crimson-700" : ""}`}>
+                      <span className={`font-semibold ${until.urgent ? "text-signal" : ""}`}>
                         {" · "}{until.text}
                       </span>
                     )}
                     {tab === "open" && (
-                      <span className={`font-semibold ${supply > 0 ? "text-green-700" : "text-crimson-700"}`}>
+                      <span className={`font-semibold ${supply > 0 ? "text-moss" : "text-signal"}`}>
                         {" · "}{supply} ready donor{supply === 1 ? "" : "s"}
                       </span>
                     )}
@@ -193,16 +193,16 @@ export default function RequestsBoard() {
                   {(pledged > 0 || tab === "open") && (
                     <div className="mt-1.5 flex items-center gap-2">
                       <div
-                        className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink-100"
+                        className="h-1.5 flex-1 overflow-hidden rounded-full bg-sand"
                         role="progressbar"
                         aria-valuenow={pct}
                         aria-valuemin={0}
                         aria-valuemax={100}
                         aria-label={`${pledged} of ${r.units} units pledged`}
                       >
-                        <div className={`h-full rounded-full ${met ? "bg-green-600" : "bg-crimson-500"}`} style={{ width: `${pct}%` }} />
+                        <div className={`h-full rounded-full ${met ? "bg-moss" : "bg-cream0"}`} style={{ width: `${pct}%` }} />
                       </div>
-                      <span className={`tnum shrink-0 text-[11px] font-bold ${met ? "text-green-700" : "text-ink-500"}`}>
+                      <span className={`tnum shrink-0 text-[11px] font-bold ${met ? "text-moss" : "text-faint"}`}>
                         {met ? "Fully pledged" : `${pledged}/${r.units}u`}
                       </span>
                     </div>
@@ -212,7 +212,7 @@ export default function RequestsBoard() {
                   <UrgencyBadge urgency={r.urgency} />
                   {dupId && (
                     <span
-                      className="rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-900 ring-1 ring-inset ring-amber-300"
+                      className="rounded-[3px] bg-cream px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-gold ring-1 ring-inset ring-line"
                       title="Same blood group and hospital posted within 24 hours — this may be a repeat of the same emergency. Open the older request instead."
                     >
                       Possible duplicate

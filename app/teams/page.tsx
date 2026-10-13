@@ -74,33 +74,33 @@ export default function TeamsPage() {
 
       {ranked.length > 0 && (
         <section aria-label="Team leaderboard">
-          <h2 className="mb-3 text-base font-bold text-ink-900">Leaderboard</h2>
+          <h2 className="mb-3 text-base font-bold text-ink">Leaderboard</h2>
           <ul className="space-y-3">
             {ranked.map(({ team, members, units, ready }, i) => (
-              <li key={team.id} className="rounded-2xl border border-ink-200 bg-white p-5">
+              <li key={team.id} className="rounded-[4px] border border-line bg-cream p-5">
                 <div className="flex items-start gap-4">
                   <div
-                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg font-bold tnum ${
-                      i === 0 ? "bg-crimson-600 text-white" : "bg-ink-100 text-ink-700"
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[3px] text-lg font-bold tnum ${
+                      i === 0 ? "bg-signal text-cream" : "bg-sand text-soot"
                     }`}
                     aria-hidden="true"
                   >
                     {i + 1}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-base font-bold text-ink-900">{team.name}</h3>
-                    <p className="mt-0.5 text-sm text-ink-600">{team.description}</p>
-                    <p className="tnum mt-2 text-sm text-ink-500">
-                      <span className="font-bold text-ink-900">{members.length}</span> member{members.length === 1 ? "" : "s"}
+                    <h3 className="text-base font-bold text-ink">{team.name}</h3>
+                    <p className="mt-0.5 text-sm text-soot">{team.description}</p>
+                    <p className="tnum mt-2 text-sm text-faint">
+                      <span className="font-bold text-ink">{members.length}</span> member{members.length === 1 ? "" : "s"}
                       {" · "}
-                      <span className="font-bold text-crimson-700">{units}</span> lifetime donations
+                      <span className="font-bold text-signal">{units}</span> lifetime donations
                       {" · "}
-                      <span className="font-bold text-green-700">{ready}</span> ready now
+                      <span className="font-bold text-moss">{ready}</span> ready now
                     </p>
                   </div>
                   <button
                     onClick={() => removeTeam(team.id)}
-                    className="rounded-lg px-2.5 py-1.5 text-xs font-semibold text-ink-400 hover:bg-crimson-50 hover:text-crimson-700 min-h-[44px]"
+                    className="rounded-[3px] px-2.5 py-1.5 text-xs font-semibold text-faint hover:bg-cream hover:text-signal min-h-[44px]"
                     aria-label={`Delete team ${team.name}`}
                   >
                     Delete
@@ -113,14 +113,14 @@ export default function TeamsPage() {
                       m ? (
                         <li
                           key={m.id}
-                          className="flex items-center gap-2 rounded-full bg-ink-50 py-1 pl-1.5 pr-2"
+                          className="flex items-center gap-2 rounded-full bg-paper py-1 pl-1.5 pr-2"
                         >
                           <GroupBadge group={m.group} size="sm" />
-                          <span className="text-xs font-semibold text-ink-800">{m.name}</span>
-                          <span className="text-[11px] text-ink-500 tnum">{m.donations}×</span>
+                          <span className="text-xs font-semibold text-ink">{m.name}</span>
+                          <span className="text-[11px] text-faint tnum">{m.donations}×</span>
                           <button
                             onClick={() => leave(team.id, m.id)}
-                            className="rounded-full px-1.5 text-xs font-bold text-ink-400 hover:text-crimson-700"
+                            className="rounded-full px-1.5 text-xs font-bold text-faint hover:text-signal"
                             aria-label={`Remove ${m.name} from ${team.name}`}
                           >
                             ×
@@ -150,7 +150,7 @@ export default function TeamsPage() {
                   <button
                     onClick={() => join(team.id, joinFor[team.id] ?? "")}
                     disabled={!joinFor[team.id]}
-                    className="rounded-xl bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700 disabled:opacity-40 min-h-[44px]"
+                    className="rounded-[3px] bg-signal px-4 py-2 text-sm font-semibold text-cream hover:bg-ember disabled:opacity-40 min-h-[44px]"
                   >
                     Join team
                   </button>
@@ -168,8 +168,8 @@ export default function TeamsPage() {
         />
       )}
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Start a team</h2>
+      <section className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Start a team</h2>
         <form onSubmit={create} className="mt-4 grid gap-4 sm:grid-cols-2">
           <Field label="Team name">
             <input value={name} onChange={(e) => setName(e.target.value)} required maxLength={60} placeholder="e.g. Block C Lifesavers" className={inputCls} />
@@ -178,7 +178,7 @@ export default function TeamsPage() {
             <input value={description} onChange={(e) => setDescription(e.target.value)} maxLength={160} placeholder="Who are you and where are you?" className={inputCls} />
           </Field>
           <div className="sm:col-span-2">
-            <button type="submit" className="rounded-xl bg-crimson-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]">
+            <button type="submit" className="rounded-[3px] bg-signal px-6 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]">
               Create team
             </button>
           </div>
