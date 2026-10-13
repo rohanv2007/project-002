@@ -79,49 +79,49 @@ export default function Learn() {
         subtitle="Straight answers, no scare tactics. Knowing the facts is what turns a willing person into a regular donor."
       />
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Can I donate? The short version</h2>
-        <ul className="mt-3 grid gap-2 text-sm text-ink-700 sm:grid-cols-2">
+      <section className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Can I donate? The short version</h2>
+        <ul className="mt-3 grid gap-2 text-sm text-soot sm:grid-cols-2">
           {["Age 18–65", "Weight 45 kg or more", "Feeling healthy today", "Haemoglobin 12.5 g/dL+", "90 days since last donation", "No recent tattoo, surgery or infection"].map((c) => (
             <li key={c} className="flex items-start gap-2">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-800" aria-hidden="true">✓</span>
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cream text-xs font-bold text-moss" aria-hidden="true">✓</span>
               {c}
             </li>
           ))}
         </ul>
-        <a href="/eligibility" className="mt-4 inline-block rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700">
+        <a href="/eligibility" className="mt-4 inline-block rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember">
           Take the full 2-minute check
         </a>
       </section>
 
       <section aria-label="Donation types and cadence">
-        <h2 className="mb-1 text-base font-bold text-ink-900">Three ways to donate — and how often</h2>
-        <p className="mb-3 text-sm text-ink-600">
+        <h2 className="mb-1 text-base font-bold text-ink">Three ways to donate — and how often</h2>
+        <p className="mb-3 text-sm text-soot">
           Whole blood isn't the only option. Component donors can give far more often, which is exactly what shortage-prone banks need.
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           {DONATION_TYPES.map((t) => (
-            <div key={t.name} className="rounded-2xl border border-ink-200 bg-white p-5">
-              <h3 className="text-sm font-bold text-ink-900">{t.name}</h3>
-              <p className="tnum mt-1 text-xs font-bold uppercase tracking-wide text-crimson-700">{t.cadence}</p>
-              <p className="mt-0.5 text-xs text-ink-500">{t.time}</p>
-              <p className="mt-2 text-sm text-ink-700">{t.best}</p>
+            <div key={t.name} className="rounded-[4px] border border-line bg-cream p-5">
+              <h3 className="text-sm font-bold text-ink">{t.name}</h3>
+              <p className="tnum mt-1 text-xs font-bold uppercase tracking-wide text-signal">{t.cadence}</p>
+              <p className="mt-0.5 text-xs text-faint">{t.time}</p>
+              <p className="mt-2 text-sm text-soot">{t.best}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section>
-        <h2 className="mb-3 text-base font-bold text-ink-900">Myths vs facts</h2>
+        <h2 className="mb-3 text-base font-bold text-ink">Myths vs facts</h2>
         <div className="space-y-3">
           {MYTHS.map((m) => (
-            <details key={m.myth} className="group rounded-2xl border border-ink-200 bg-white px-5 py-4">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-ink-900">
-                <span className="mr-2 inline-block rounded bg-crimson-50 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-crimson-700">Myth</span>
+            <details key={m.myth} className="group rounded-[4px] border border-line bg-cream px-5 py-4">
+              <summary className="cursor-pointer list-none text-sm font-semibold text-ink">
+                <span className="mr-2 inline-block rounded bg-cream px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-signal">Myth</span>
                 {m.myth}
               </summary>
-              <p className="mt-2 text-sm text-ink-600">
-                <span className="mr-2 inline-block rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-green-800">Fact</span>
+              <p className="mt-2 text-sm text-soot">
+                <span className="mr-2 inline-block rounded bg-cream px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-moss">Fact</span>
                 {m.fact}
               </p>
             </details>
@@ -130,68 +130,68 @@ export default function Learn() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-base font-bold text-ink-900">Before, during, after</h2>
+        <h2 className="mb-3 text-base font-bold text-ink">Before, during, after</h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {TIPS.map((t) => (
-            <div key={t.h} className="rounded-2xl border border-ink-200 bg-white p-5">
-              <h3 className="text-sm font-bold text-crimson-700">{t.h}</h3>
-              <ul className="mt-2 space-y-1.5 text-sm text-ink-700">
-                {t.items.map((i) => <li key={i} className="flex gap-2"><span aria-hidden="true" className="text-ink-300">•</span>{i}</li>)}
+            <div key={t.h} className="rounded-[4px] border border-line bg-cream p-5">
+              <h3 className="text-sm font-bold text-signal">{t.h}</h3>
+              <ul className="mt-2 space-y-1.5 text-sm text-soot">
+                {t.items.map((i) => <li key={i} className="flex gap-2"><span aria-hidden="true" className="text-line">•</span>{i}</li>)}
               </ul>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="rounded-2xl border border-purple-200 bg-purple-50/50 p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Rare phenotypes: beyond the blood group</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section className="rounded-[4px] border border-line bg-cream/50 p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Rare phenotypes: beyond the blood group</h2>
+        <p className="mt-1 text-sm text-soot">
           Some people carry rare blood features — Bombay (Oh), Rh-null, or rare antigen
           combinations — that a regular blood-group label misses. In June 2025, India's
           ICMR-NIIH launched the country's first national rare donor registry (being
           integrated with e-RaktKosh) precisely because these patients are the hardest
           to match in an emergency.
         </p>
-        <ul className="mt-3 space-y-2 text-sm text-ink-700">
-          <li className="flex gap-2"><span aria-hidden="true" className="text-purple-700">•</span>If a lab has ever told you that you have Bombay (Oh) or Rh-null blood, tag it on your Raktha donor registration — requests that need it will spotlight you.</li>
-          <li className="flex gap-2"><span aria-hidden="true" className="text-purple-700">•</span>If a hospital asks for a rare phenotype for a patient, add it to the request — matching donors rise to the top of the call list automatically.</li>
+        <ul className="mt-3 space-y-2 text-sm text-soot">
+          <li className="flex gap-2"><span aria-hidden="true" className="text-signal">•</span>If a lab has ever told you that you have Bombay (Oh) or Rh-null blood, tag it on your Raktha donor registration — requests that need it will spotlight you.</li>
+          <li className="flex gap-2"><span aria-hidden="true" className="text-signal">•</span>If a hospital asks for a rare phenotype for a patient, add it to the request — matching donors rise to the top of the call list automatically.</li>
         </ul>
       </section>
 
-      <section aria-label="Frequently asked questions" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Frequently asked questions</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Frequently asked questions" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Frequently asked questions</h2>
+        <p className="mt-1 text-sm text-soot">
           The answers first-time donors ask most — straight from blood-bank guidance.
         </p>
-        <div className="mt-4 divide-y divide-ink-100 rounded-xl border border-ink-200">
+        <div className="mt-4 divide-y divide-line rounded-[3px] border border-line">
           {FAQS.map((f) => (
             <details key={f.q} className="group px-4 py-3">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-ink-900 marker:hidden min-h-[44px] flex items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+              <summary className="cursor-pointer list-none text-sm font-semibold text-ink marker:hidden min-h-[44px] flex items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
                 <span>{f.q}</span>
-                <span aria-hidden="true" className="shrink-0 text-lg font-normal text-crimson-600 group-open:hidden">+</span>
-                <span aria-hidden="true" className="hidden shrink-0 text-lg font-normal text-crimson-600 group-open:inline">−</span>
+                <span aria-hidden="true" className="shrink-0 text-lg font-normal text-signal group-open:hidden">+</span>
+                <span aria-hidden="true" className="hidden shrink-0 text-lg font-normal text-signal group-open:inline">−</span>
               </summary>
-              <p className="mt-1 pb-1 text-sm leading-relaxed text-ink-600">{f.a}</p>
+              <p className="mt-1 pb-1 text-sm leading-relaxed text-soot">{f.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Who can give to whom</h2>
-        <p className="mt-1 text-sm text-ink-600">Red-cell compatibility. O− donors can give to everyone; AB+ patients can receive from everyone.</p>
+      <section className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Who can give to whom</h2>
+        <p className="mt-1 text-sm text-soot">Red-cell compatibility. O− donors can give to everyone; AB+ patients can receive from everyone.</p>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[480px] text-sm">
             <caption className="sr-only">Blood group compatibility: which donor groups each patient group can receive from</caption>
             <thead>
               <tr>
-                <th scope="col" className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-ink-500">Patient</th>
-                <th scope="col" className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-ink-500">Can receive from</th>
+                <th scope="col" className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-faint">Patient</th>
+                <th scope="col" className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-faint">Can receive from</th>
               </tr>
             </thead>
             <tbody>
               {BLOOD_GROUPS.map((g) => (
-                <tr key={g} className="border-t border-ink-100">
+                <tr key={g} className="border-t border-line">
                   <th scope="row" className="px-3 py-2.5 text-left"><GroupBadge group={g} size="sm" /></th>
                   <td className="px-3 py-2.5">
                     <span className="flex flex-wrap gap-1.5">

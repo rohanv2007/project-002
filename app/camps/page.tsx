@@ -163,29 +163,29 @@ export default function Camps() {
     return (
     <article
       key={c.id}
-      className={`rounded-2xl border bg-white p-5 ${isPast ? "border-ink-200 opacity-70" : "border-ink-200"}`}
+      className={`rounded-[4px] border bg-cream p-5 ${isPast ? "border-line opacity-70" : "border-line"}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h2 className="text-base font-bold text-ink-900">{c.name}</h2>
-          <p className="mt-0.5 text-xs text-ink-500">
+          <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">{c.name}</h2>
+          <p className="mt-0.5 text-xs text-faint">
             {c.organiser} · {c.area}
           </p>
         </div>
-        <p className={`tnum shrink-0 rounded-lg px-3 py-1.5 text-center text-xs font-bold ${
-          isPast ? "bg-ink-100 text-ink-500" : "bg-crimson-50 text-crimson-800 ring-1 ring-inset ring-crimson-200"
+        <p className={`tnum shrink-0 rounded-[3px] px-3 py-1.5 text-center text-xs font-bold ${
+          isPast ? "bg-sand text-faint" : "bg-cream text-ember ring-1 ring-inset ring-signal"
         }`}>
           {formatDate(c.date)}
         </p>
       </div>
       <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
         <div>
-          <dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">Venue</dt>
-          <dd className="mt-0.5 font-medium text-ink-900">{c.venue}</dd>
+          <dt className="text-xs font-semibold uppercase tracking-wide text-faint">Venue</dt>
+          <dd className="mt-0.5 font-medium text-ink">{c.venue}</dd>
         </div>
         <div>
-          <dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">Time</dt>
-          <dd className="tnum mt-0.5 font-medium text-ink-900">
+          <dt className="text-xs font-semibold uppercase tracking-wide text-faint">Time</dt>
+          <dd className="tnum mt-0.5 font-medium text-ink">
             {c.startTime} – {c.endTime}
           </dd>
         </div>
@@ -193,30 +193,30 @@ export default function Camps() {
       {!isPast && (
         <>
           {myAppt ? (
-            <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl bg-green-50 p-3 ring-1 ring-inset ring-green-200">
-              <p className="text-sm font-semibold text-green-900">
+            <div className="mt-4 flex flex-wrap items-center gap-2 rounded-[3px] bg-cream p-3 ring-1 ring-inset ring-line">
+              <p className="text-sm font-semibold text-moss">
                 Booked · {myAppt.slot}
               </p>
               <button
                 onClick={() => removeAppointment(myAppt.id)}
-                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-green-900 underline-offset-2 hover:underline min-h-[44px]"
+                className="rounded-[3px] px-3 py-1.5 text-xs font-semibold text-moss underline-offset-2 hover:underline min-h-[44px]"
               >
                 Cancel appointment
               </button>
             </div>
           ) : bookingCampId === c.id ? (
-            <div className="mt-4 rounded-xl bg-ink-50 p-3">
-              <p className="text-xs font-semibold text-ink-700">Pick a one-hour slot</p>
+            <div className="mt-4 rounded-[3px] bg-paper p-3">
+              <p className="text-xs font-semibold text-soot">Pick a one-hour slot</p>
               <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3" role="group" aria-label={`Donation slots for ${c.name}`}>
                 {slotsFor(c).map((s) => (
                   <button
                     key={s}
                     onClick={() => setChosenSlot(s)}
                     aria-pressed={chosenSlot === s}
-                    className={`tnum rounded-lg border px-3 py-2 text-xs font-semibold min-h-[44px] ${
+                    className={`tnum rounded-[3px] border px-3 py-2 text-xs font-semibold min-h-[44px] ${
                       chosenSlot === s
-                        ? "border-crimson-600 bg-crimson-600 text-white"
-                        : "border-ink-300 bg-white text-ink-700 hover:bg-ink-50"
+                        ? "border-signal bg-signal text-cream"
+                        : "border-line bg-cream text-soot hover:bg-paper"
                     }`}
                   >
                     {s}
@@ -227,13 +227,13 @@ export default function Camps() {
                 <button
                   onClick={() => bookSlot(c)}
                   disabled={!chosenSlot}
-                  className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 disabled:cursor-not-allowed disabled:bg-ink-300 min-h-[44px]"
+                  className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember disabled:cursor-not-allowed disabled:bg-line min-h-[44px]"
                 >
                   Confirm slot
                 </button>
                 <button
                   onClick={() => { setBookingCampId(null); setChosenSlot(""); }}
-                  className="rounded-xl px-4 py-2.5 text-sm font-semibold text-ink-500 hover:bg-ink-100 min-h-[44px]"
+                  className="rounded-[3px] px-4 py-2.5 text-sm font-semibold text-faint hover:bg-sand min-h-[44px]"
                 >
                   Back
                 </button>
@@ -243,31 +243,31 @@ export default function Camps() {
             <div className="mt-4 flex flex-wrap gap-2">
               <a
                 href={`tel:${c.contactPhone.replace(/[\s-]/g, "")}`}
-                className="inline-flex min-h-[44px] items-center rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700"
+                className="inline-flex min-h-[44px] items-center rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember"
               >
                 Call organiser
               </a>
               <button
                 onClick={() => toggleRsvp(c)}
                 aria-pressed={myRsvps.includes(c.id)}
-                className={`inline-flex min-h-[44px] items-center rounded-xl border px-5 py-2.5 text-sm font-semibold ${
+                className={`inline-flex min-h-[44px] items-center rounded-[3px] border px-5 py-2.5 text-sm font-semibold ${
                   myRsvps.includes(c.id)
-                    ? "border-green-600 bg-green-50 text-green-800"
-                    : "border-ink-300 text-ink-800 hover:bg-ink-50"
+                    ? "border-moss bg-cream text-moss"
+                    : "border-line text-ink hover:bg-paper"
                 }`}
               >
                 {myRsvps.includes(c.id) ? "✓ I'm going" : "I'm going"}
               </button>
               <button
                 onClick={() => setBookingCampId(c.id)}
-                className="inline-flex min-h-[44px] items-center rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50"
+                className="inline-flex min-h-[44px] items-center rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper"
               >
                 Book a slot
               </button>
               <a
                 href={icsHref(c)}
                 download={`${c.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "") || "camp"}.ics`}
-                className="inline-flex min-h-[44px] items-center rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50"
+                className="inline-flex min-h-[44px] items-center rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper"
               >
                 Add to calendar
               </a>
@@ -276,7 +276,7 @@ export default function Camps() {
         </>
       )}
       {(c.rsvps ?? 0) > 0 && (
-        <p className="tnum mt-2 text-xs font-medium text-ink-500" aria-live="polite">
+        <p className="tnum mt-2 text-xs font-medium text-faint" aria-live="polite">
           {c.rsvps} {c.rsvps === 1 ? "person" : "people"} going
           {myRsvps.includes(c.id) ? " — including you" : ""}
         </p>
@@ -300,7 +300,7 @@ export default function Camps() {
           action={
             <button
               onClick={() => setShowForm(true)}
-              className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white min-h-[44px]"
+              className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream min-h-[44px]"
             >
               List a camp
             </button>
@@ -314,25 +314,25 @@ export default function Camps() {
 
       {past.length > 0 && (
         <section aria-label="Past camps">
-          <h2 className="mb-3 text-sm font-bold text-ink-900">Past camps</h2>
+          <h2 className="mb-3 text-sm font-bold text-ink">Past camps</h2>
           <div className="grid gap-4 md:grid-cols-2">
             {past.map((c) => campCard(c, true))}
           </div>
         </section>
       )}
 
-      <div className="border-t border-ink-200 pt-5">
+      <div className="border-t border-line pt-5">
         {!showForm ? (
           <button
             onClick={() => setShowForm(true)}
-            className="rounded-xl border border-dashed border-ink-300 px-5 py-3 text-sm font-semibold text-ink-700 hover:bg-white min-h-[44px] w-full sm:w-auto"
+            className="rounded-[3px] border border-dashed border-line px-5 py-3 text-sm font-semibold text-soot hover:bg-cream min-h-[44px] w-full sm:w-auto"
           >
             + List a blood camp
           </button>
         ) : (
-          <section aria-label="List a blood camp" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-            <h2 className="text-base font-bold text-ink-900">List a blood camp</h2>
-            <p className="mt-1 text-sm text-ink-600">
+          <section aria-label="List a blood camp" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+            <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">List a blood camp</h2>
+            <p className="mt-1 text-sm text-soot">
               Organising a drive? Post the details — donors in the area will find it here.
             </p>
             <form onSubmit={submit} className="mt-4 space-y-4">
@@ -363,13 +363,13 @@ export default function Camps() {
                 </Field>
               </div>
               <div className="flex flex-wrap gap-2">
-                <button type="submit" className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]">
+                <button type="submit" className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]">
                   List camp
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-700 hover:bg-ink-50 min-h-[44px]"
+                  className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-soot hover:bg-paper min-h-[44px]"
                 >
                   Cancel
                 </button>

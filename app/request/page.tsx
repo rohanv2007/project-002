@@ -32,7 +32,7 @@ interface RequestDraft {
 
 export default function RequestBlood() {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-2xl"><p className="text-sm text-ink-500">Loading…</p></div>}>
+    <Suspense fallback={<div className="mx-auto max-w-2xl"><p className="text-sm text-faint">Loading…</p></div>}>
       <RequestForm />
     </Suspense>
   );
@@ -42,8 +42,10 @@ function RequestForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [, , addRequest] = useRequests();
-  const [patients] = usePatients();
+  const [patients, , , updatePatient] = usePatients();
   const [patientPrefill, setPatientPrefill] = useState<string | null>(null);
+  const [patientId, setPatientId] = useState<string | null>(null);
+  const [nextInWeeks, setNextInWeeks] = useState(3);
   const [patientName, setPatientName] = useState("");
   const [group, setGroup] = useState<BloodGroup>("O+");
   const [units, setUnits] = useState(1);
@@ -72,6 +74,7 @@ function RequestForm() {
         setUrgency("scheduled");
         setNotes(`${p.condition} — recurring transfusion.`);
         setPatientPrefill(p.name);
+        setPatientId(p.id);
         return;
       }
     }
@@ -147,6 +150,14 @@ function RequestForm() {
       createdAt: new Date().toISOString(),
       expiresAt: new Date(Date.now() + hours * 3600_000).toISOString(),
     });
+    if (patientId) {
+      // Recurring-transfusion loop closure: posting this cycle's request
+      // advances the patient's due date, so the "overdue" nag stops and the
+      // next cycle's reminder lands on the right date.
+      const d = new Date();
+      d.setDate(d.getDate() + nextInWeeks * 7);
+      updatePatient(patientId, { nextDue: d.toISOString().slice(0, 10) });
+    }
     clearDraft();
     router.push(`/requests/${id}`);
   };
@@ -158,25 +169,40 @@ function RequestForm() {
         subtitle="Takes under a minute. The moment you post, we'll show every compatible donor you can call — no waiting on forwards."
       />
       {patientPrefill && (
-        <p role="status" className="mb-4 rounded-xl bg-purple-50 px-4 py-3 text-sm font-medium text-purple-900 ring-1 ring-inset ring-purple-200">
-          Pre-filled from {patientPrefill}'s profile — adjust the units and post.
-        </p>
+        <div role="status" className="mb-4 rounded-[3px] bg-cream px-4 py-3 ring-1 ring-inset ring-line">
+          <p className="text-sm font-medium text-signal">
+            Pre-filled from {patientPrefill}'s profile — adjust the units and post.
+          </p>
+          <label className="mt-2 flex flex-wrap items-center gap-2 text-sm text-signal">
+            <span className="font-medium">Next transfusion after this one:</span>
+            <select
+              value={nextInWeeks}
+              onChange={(e) => setNextInWeeks(Number(e.target.value))}
+              aria-label="Weeks until the next transfusion"
+              className="min-h-[44px] rounded-[3px] border border-line bg-cream px-2 py-1.5 text-sm font-semibold"
+            >
+              {[2, 3, 4, 6, 8].map((w) => (
+                <option key={w} value={w}>{w} weeks</option>
+              ))}
+            </select>
+          </label>
+        </div>
       )}
       {draftRestored && (
-        <p role="status" className="mb-4 flex items-center justify-between gap-3 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900 ring-1 ring-inset ring-amber-200">
+        <p role="status" className="mb-4 flex items-center justify-between gap-3 rounded-[3px] bg-cream px-4 py-3 text-sm font-medium text-gold ring-1 ring-inset ring-line">
           <span>Your unfinished draft was restored — nothing was lost.</span>
           <button
             type="button"
             onClick={clearDraft}
-            className="min-h-[44px] shrink-0 rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-amber-100"
+            className="min-h-[44px] shrink-0 rounded-[3px] px-3 py-1.5 text-xs font-semibold hover:bg-cream"
           >
             Discard
           </button>
         </p>
       )}
-      <form onSubmit={submit} className="space-y-5 rounded-2xl border border-ink-200 bg-white p-5 sm:p-8">
+      <form onSubmit={submit} className="space-y-5 rounded-[4px] border border-line bg-cream p-5 sm:p-8">
         {error && (
-          <p role="alert" className="rounded-xl bg-crimson-50 px-4 py-3 text-sm font-medium text-crimson-800 ring-1 ring-inset ring-crimson-200">
+          <p role="alert" className="rounded-[3px] bg-cream px-4 py-3 text-sm font-medium text-ember ring-1 ring-inset ring-signal">
             {error}
           </p>
         )}
@@ -211,7 +237,7 @@ function RequestForm() {
             </select>
           </Field>
           {isComponentUrgent(component) && urgency !== "critical" && (
-            <p role="note" className="rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900 ring-1 ring-inset ring-amber-200">
+            <p role="note" className="rounded-[3px] bg-cream px-4 py-3 text-sm font-medium text-gold ring-1 ring-inset ring-line">
               Platelets last ~5 days — they can't be stocked. Consider switching urgency to Critical so this stays visible longest.
             </p>
           )}
@@ -243,7 +269,7 @@ function RequestForm() {
         <Field label="Notes for donors (optional)" hint="Surgery timing, where to report, anything that helps.">
           <textarea className={`${inputCls} min-h-[88px] resize-y`} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="e.g. Surgery at 6 AM. Report to the blood bank counter on the ground floor." />
         </Field>
-        <button type="submit" className="w-full rounded-xl bg-crimson-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-crimson-700">
+        <button type="submit" className="w-full rounded-[3px] bg-signal px-6 py-3.5 text-sm font-semibold text-cream hover:bg-ember">
           Post request & find donors
         </button>
       </form>
