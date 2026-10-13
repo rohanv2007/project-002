@@ -130,7 +130,7 @@ export default function RequestDetail() {
         kind="search"
         title="Request not found"
         body="This request may have been removed, or the link is wrong."
-        action={<Link href="/requests" className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white">Back to requests</Link>}
+        action={<Link href="/requests" className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream">Back to requests</Link>}
       />
     );
   }
@@ -208,47 +208,47 @@ export default function RequestDetail() {
     <div className="mx-auto max-w-3xl space-y-6">
       <PageHeader title={`Request for ${request.patientName}`} subtitle={`${request.units} unit${request.units > 1 ? "s" : ""} of ${request.group} ${componentLabel(request.component)} · ${request.hospital}, ${request.area}`} />
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
+      <section className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <GroupBadge group={request.group} />
           <UrgencyBadge urgency={request.urgency} />
           {request.component && request.component !== "whole" && (
-            <span className="rounded-md bg-ink-100 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-ink-800">
+            <span className="rounded-[3px] bg-sand px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-ink">
               {componentLabel(request.component)}
             </span>
           )}
           {isComponentUrgent(request.component) && request.status === "open" && (
-            <span className="rounded-md bg-amber-100 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-amber-900 ring-1 ring-inset ring-amber-300" title="Platelets can't be stored — they must reach a patient within days.">
+            <span className="rounded-[3px] bg-cream px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-gold ring-1 ring-inset ring-line" title="Platelets can't be stored — they must reach a patient within days.">
               Time-critical
             </span>
           )}
           {request.rarePhenotypeNeeded && (
-            <span className="rounded-md bg-purple-100 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-purple-800">
+            <span className="rounded-[3px] bg-cream px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-signal">
               Needs {request.rarePhenotypeNeeded}
             </span>
           )}
-          <span className={`rounded-md px-2 py-0.5 text-xs font-semibold ${request.status === "open" && !expired ? "bg-green-100 text-green-900" : "bg-ink-100 text-ink-600"}`}>
+          <span className={`rounded-[3px] px-2 py-0.5 text-xs font-semibold ${request.status === "open" && !expired ? "bg-cream text-moss" : "bg-sand text-soot"}`}>
             {request.status === "fulfilled" ? "Fulfilled" : expired ? "Expired" : "Open"}
           </span>
         </div>
         <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-          <div><dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">Contact</dt><dd className="mt-0.5 font-medium text-ink-900">{request.contactName}</dd></div>
-          <div><dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">Phone</dt><dd className="mt-0.5"><a href={telHref(request.contactPhone)} className="font-semibold text-crimson-700 hover:underline tnum">{request.contactPhone}</a></dd></div>
-          <div><dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">Posted</dt><dd className="mt-0.5 text-ink-700">{timeAgo(request.createdAt)}</dd></div>
-          <div><dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">{expired ? "Expired" : "Expires"}</dt><dd className="mt-0.5 text-ink-700">{formatDateTime(request.expiresAt)}{!expired && (() => { const u = timeUntil(request.expiresAt); return <span className={u.urgent ? "font-semibold text-crimson-700" : ""}> · {u.text}</span>; })()}</dd></div>
+          <div><dt className="text-xs font-semibold uppercase tracking-wide text-faint">Contact</dt><dd className="mt-0.5 font-medium text-ink">{request.contactName}</dd></div>
+          <div><dt className="text-xs font-semibold uppercase tracking-wide text-faint">Phone</dt><dd className="mt-0.5"><a href={telHref(request.contactPhone)} className="font-semibold text-signal hover:underline tnum">{request.contactPhone}</a></dd></div>
+          <div><dt className="text-xs font-semibold uppercase tracking-wide text-faint">Posted</dt><dd className="mt-0.5 text-soot">{timeAgo(request.createdAt)}</dd></div>
+          <div><dt className="text-xs font-semibold uppercase tracking-wide text-faint">{expired ? "Expired" : "Expires"}</dt><dd className="mt-0.5 text-soot">{formatDateTime(request.expiresAt)}{!expired && (() => { const u = timeUntil(request.expiresAt); return <span className={u.urgent ? "font-semibold text-signal" : ""}> · {u.text}</span>; })()}</dd></div>
         </dl>
-        {request.notes && <p className="mt-4 rounded-xl bg-ink-50 px-4 py-3 text-sm text-ink-700">{request.notes}</p>}
+        {request.notes && <p className="mt-4 rounded-[3px] bg-paper px-4 py-3 text-sm text-soot">{request.notes}</p>}
         {request.status === "open" && !expired && (
           <div className="mt-5 flex flex-col gap-2 sm:flex-row">
             <button
               onClick={() => { updateRequest(request.id, { status: "fulfilled" }); router.push("/requests"); }}
-              className="rounded-xl bg-green-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-800 min-h-[44px]"
+              className="rounded-[3px] bg-moss px-5 py-2.5 text-sm font-semibold text-cream hover:bg-moss min-h-[44px]"
             >
               Mark as fulfilled
             </button>
             <button
               onClick={() => { updateRequest(request.id, { status: "expired" }); router.push("/requests"); }}
-              className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-700 hover:bg-ink-50 min-h-[44px]"
+              className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-soot hover:bg-paper min-h-[44px]"
             >
               Close request
             </button>
@@ -256,19 +256,19 @@ export default function RequestDetail() {
               href={shareHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border border-crimson-300 bg-crimson-50 px-5 py-2.5 text-sm font-semibold text-crimson-700 hover:bg-crimson-100 min-h-[44px] inline-flex items-center justify-center"
+              className="rounded-[3px] border border-signal bg-cream px-5 py-2.5 text-sm font-semibold text-signal hover:bg-cream min-h-[44px] inline-flex items-center justify-center"
             >
               Share on WhatsApp
             </a>
             <Link
               href={`/requests/${request.id}/sos`}
-              className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center justify-center"
+              className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center justify-center"
             >
               SOS broadcast
             </Link>
             <Link
               href={`/requests/${request.id}/print`}
-              className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-700 hover:bg-ink-50 min-h-[44px] inline-flex items-center justify-center"
+              className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-soot hover:bg-paper min-h-[44px] inline-flex items-center justify-center"
               title="A one-page poster for the hospital noticeboard"
             >
               Print flyer
@@ -279,7 +279,7 @@ export default function RequestDetail() {
                   expiresAt: new Date(new Date(request.expiresAt).getTime() + 24 * 3600_000).toISOString(),
                 });
               }}
-              className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-700 hover:bg-ink-50 min-h-[44px]"
+              className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-soot hover:bg-paper min-h-[44px]"
               title="Push the expiry 24 hours forward — the search stays live while pledges come in."
             >
               Extend by 24h
@@ -313,11 +313,11 @@ export default function RequestDetail() {
                 }
                 router.push("/request");
               }}
-              className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]"
+              className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]"
             >
               Repost as new request
             </button>
-            <p className="mt-2 text-xs text-ink-500">
+            <p className="mt-2 text-xs text-faint">
               The emergency isn't over just because the timer ran out. The form comes back pre-filled with every detail — adjust anything and submit.
             </p>
           </div>
@@ -325,9 +325,9 @@ export default function RequestDetail() {
       </section>
 
       {possibleDuplicate && request.status === "open" && !expired && (
-        <section role="alert" aria-label="Possible duplicate request" className="rounded-2xl border border-amber-300 bg-amber-50 p-5 sm:p-6">
-          <h2 className="text-base font-bold text-amber-900">Possible duplicate request</h2>
-          <p className="mt-1 text-sm text-amber-900">
+        <section role="alert" aria-label="Possible duplicate request" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+          <h2 className="text-base font-bold text-gold">Possible duplicate request</h2>
+          <p className="mt-1 text-sm text-gold">
             An earlier open request for {request.group} at {request.hospital} was posted{" "}
             {timeAgo(possibleDuplicate.createdAt)}. If this is the same emergency, close this
             one so donors aren't split across two threads.
@@ -335,13 +335,13 @@ export default function RequestDetail() {
           <div className="mt-3 flex flex-wrap gap-2">
             <Link
               href={`/requests/${possibleDuplicate.id}`}
-              className="rounded-xl border border-amber-700 px-5 py-2.5 text-sm font-semibold text-amber-900 hover:bg-amber-100 min-h-[44px] inline-flex items-center"
+              className="rounded-[3px] border border-gold px-5 py-2.5 text-sm font-semibold text-gold hover:bg-cream min-h-[44px] inline-flex items-center"
             >
               View the earlier request
             </Link>
             <button
               onClick={() => { updateRequest(request.id, { status: "expired" }); router.push("/requests"); }}
-              className="rounded-xl bg-amber-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-800 min-h-[44px]"
+              className="rounded-[3px] bg-gold px-5 py-2.5 text-sm font-semibold text-cream hover:bg-gold min-h-[44px]"
             >
               Close as duplicate
             </button>
@@ -349,61 +349,61 @@ export default function RequestDetail() {
         </section>
       )}
 
-      <section aria-label="Pledged donations" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
+      <section aria-label="Pledged donations" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
         {request.status === "open" && !expired && pledges.length === 0 &&
           Date.now() - +new Date(request.createdAt) > 6 * 3600_000 && (
-            <div role="alert" className="mb-5 rounded-xl border border-amber-300 bg-amber-50 p-4 ring-1 ring-inset ring-amber-200">
-              <p className="text-sm font-bold text-amber-900">
+            <div role="alert" className="mb-5 rounded-[3px] border border-line bg-cream p-4 ring-1 ring-inset ring-line">
+              <p className="text-sm font-bold text-gold">
                 No pledges yet after {timeAgo(request.createdAt)} — share again
               </p>
-              <p className="mt-1 text-sm text-amber-900">
+              <p className="mt-1 text-sm text-gold">
                 A second forward reaches new people. The request that gets shared twice is the one that gets answered.
               </p>
               <a
                 href={shareHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex min-h-[44px] items-center rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-700"
+                className="mt-3 inline-flex min-h-[44px] items-center rounded-[3px] bg-gold px-5 py-2.5 text-sm font-semibold text-cream hover:bg-gold"
               >
                 Re-share on WhatsApp
               </a>
             </div>
           )}
         {request.status === "open" && !expired && pledgedUnits >= request.units && (
-          <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-green-300 bg-green-50 p-4">
-            <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-600 text-base font-bold text-white">✓</span>
+          <div role="status" className="mb-5 flex items-start gap-3 rounded-[4px] border border-moss bg-cream p-4">
+            <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-moss text-base font-bold text-cream">✓</span>
             <div className="min-w-0">
-              <p className="text-sm font-bold text-green-900">
+              <p className="text-sm font-bold text-moss">
                 Pledge goal met — {pledgedUnits} of {request.units} unit{request.units > 1 ? "s" : ""} covered
               </p>
-              <p className="mt-0.5 text-xs text-green-800">
+              <p className="mt-0.5 text-xs text-moss">
                 Families usually confirm the donations by phone, then mark the request fulfilled so donors stop getting called.
               </p>
             </div>
           </div>
         )}
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-base font-bold text-ink-900">Donation pledges</h2>
-          <p className="tnum text-sm font-semibold text-ink-700">
+          <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Donation pledges</h2>
+          <p className="tnum text-sm font-semibold text-soot">
             {pledgedUnits} / {request.units} units pledged
           </p>
         </div>
-        <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-ink-100" role="progressbar" aria-valuenow={pledgePct} aria-valuemin={0} aria-valuemax={100} aria-label={`${pledgedUnits} of ${request.units} units pledged`}>
-          <div className={`h-full rounded-full ${pledgedUnits >= request.units ? "bg-green-600" : "bg-crimson-600"}`} style={{ width: `${pledgePct}%` }} />
+        <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-sand" role="progressbar" aria-valuenow={pledgePct} aria-valuemin={0} aria-valuemax={100} aria-label={`${pledgedUnits} of ${request.units} units pledged`}>
+          <div className={`h-full rounded-full ${pledgedUnits >= request.units ? "bg-moss" : "bg-signal"}`} style={{ width: `${pledgePct}%` }} />
         </div>
         {pledges.length > 0 ? (
           <ul className="mt-4 space-y-2">
             {pledges.map((p) => (
-              <li key={p.id} className="flex items-center gap-3 rounded-xl bg-ink-50 px-4 py-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-xs font-bold text-crimson-700 tnum ring-1 ring-ink-200" aria-hidden="true">
+              <li key={p.id} className="flex items-center gap-3 rounded-[3px] bg-paper px-4 py-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-[3px] bg-cream text-xs font-bold text-signal tnum ring-1 ring-line" aria-hidden="true">
                   {p.units}u
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">{p.donorName}</p>
-                  <p className="text-xs text-ink-500">{timeAgo(p.createdAt)}</p>
+                  <p className="truncate text-sm font-semibold text-ink">{p.donorName}</p>
+                  <p className="text-xs text-faint">{timeAgo(p.createdAt)}</p>
                 </div>
                 {p.phone && (
-                  <a href={telHref(p.phone)} className="rounded-lg bg-crimson-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center">
+                  <a href={telHref(p.phone)} className="rounded-[3px] bg-signal px-3.5 py-1.5 text-xs font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center">
                     Call
                   </a>
                 )}
@@ -411,14 +411,14 @@ export default function RequestDetail() {
             ))}
           </ul>
         ) : (
-          <p className="mt-4 text-sm text-ink-500">
+          <p className="mt-4 text-sm text-faint">
             Nobody has pledged yet. A pledge is a promise to donate — families can see at a glance whether the gap is closing.
           </p>
         )}
         {request.status === "fulfilled" && unrecordedPledges.length > 0 && (
-          <div className="mt-4 rounded-xl border border-green-300 bg-green-50 p-4">
-            <p className="text-sm font-bold text-green-900">Record the donations</p>
-            <p className="mt-1 text-xs text-green-800">
+          <div className="mt-4 rounded-[3px] border border-moss bg-cream p-4">
+            <p className="text-sm font-bold text-moss">Record the donations</p>
+            <p className="mt-1 text-xs text-moss">
               Tick everyone who actually donated. Matched registered donors get the donation in
               their history — lifetime count, last-donation date, and next-eligible countdown
               all update automatically.
@@ -428,7 +428,7 @@ export default function RequestDetail() {
                 const donor = matchDonor(p.donorName, p.phone);
                 const checked = recordIds.includes(p.id);
                 return (
-                  <li key={p.id} className="flex items-center gap-3 rounded-xl bg-white px-4 py-2.5 ring-1 ring-green-200">
+                  <li key={p.id} className="flex items-center gap-3 rounded-[3px] bg-cream px-4 py-2.5 ring-1 ring-line">
                     <input
                       type="checkbox"
                       id={`rec-${p.id}`}
@@ -438,15 +438,15 @@ export default function RequestDetail() {
                           e.target.checked ? [...prev, p.id] : prev.filter((x) => x !== p.id)
                         )
                       }
-                      className="h-5 w-5 shrink-0 accent-green-700"
+                      className="h-5 w-5 shrink-0 accent-[#2f6e4e]"
                     />
                     <div className="min-w-0 flex-1">
-                      <label htmlFor={`rec-${p.id}`} className="block cursor-pointer truncate text-sm font-semibold text-ink-900">
-                        {p.donorName} <span className="tnum font-medium text-ink-500">· {p.units}u</span>
+                      <label htmlFor={`rec-${p.id}`} className="block cursor-pointer truncate text-sm font-semibold text-ink">
+                        {p.donorName} <span className="tnum font-medium text-faint">· {p.units}u</span>
                       </label>
-                      <p className="text-xs text-ink-500">
+                      <p className="text-xs text-faint">
                         {donor ? (
-                          <span className="font-semibold text-green-800">Registered donor — history will update</span>
+                          <span className="font-semibold text-moss">Registered donor — history will update</span>
                         ) : (
                           "Not on the registry — will just close out the request"
                         )}
@@ -459,14 +459,14 @@ export default function RequestDetail() {
             <button
               onClick={recordDonations}
               disabled={recordIds.length === 0}
-              className="mt-3 rounded-xl bg-green-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-800 min-h-[44px] disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-3 rounded-[3px] bg-moss px-5 py-2.5 text-sm font-semibold text-cream hover:bg-moss min-h-[44px] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Record {recordIds.length > 0 ? `${recordIds.length} ` : ""}donation{recordIds.length === 1 ? "" : "s"}
             </button>
           </div>
         )}
         {request.status === "open" && !expired && (
-          <form onSubmit={addPledge} className="mt-4 grid gap-3 border-t border-ink-100 pt-4 sm:grid-cols-[1fr_1fr_110px_auto]">
+          <form onSubmit={addPledge} className="mt-4 grid gap-3 border-t border-line pt-4 sm:grid-cols-[1fr_1fr_110px_auto]">
             <Field label="Your name">
               <input value={pledgeName} onChange={(e) => setPledgeName(e.target.value)} required maxLength={60} placeholder="e.g. Karthik Raja" className={inputCls} />
             </Field>
@@ -477,7 +477,7 @@ export default function RequestDetail() {
               <input type="number" min={1} max={4} value={pledgeUnits} onChange={(e) => setPledgeUnits(Number(e.target.value))} aria-label="Pledged units" className={inputCls} />
             </Field>
             <div className="flex items-end">
-              <button type="submit" className="w-full rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px] sm:w-auto">
+              <button type="submit" className="w-full rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px] sm:w-auto">
                 Pledge
               </button>
             </div>
@@ -486,34 +486,34 @@ export default function RequestDetail() {
       </section>
 
       <section aria-label="Matching donors">
-        <h2 className="mb-3 text-base font-bold text-ink-900">
-          Compatible donors <span className="tnum font-semibold text-ink-500">({callable.length} ready to call)</span>
+        <h2 className="mb-3 text-base font-bold text-ink">
+          Compatible donors <span className="tnum font-semibold text-faint">({callable.length} ready to call)</span>
         </h2>
         {callable.length === 0 ? (
           <EmptyState
             kind="people"
             title="No ready donors match right now"
             body={`Nobody registered can donate ${request.group} at the moment. Try widening the net: share the request, or check the blood bank stock below — O- donors can cover any group.`}
-            action={<Link href="/banks" className="rounded-xl border border-ink-300 px-5 py-2.5 text-sm font-semibold text-ink-800 hover:bg-ink-50">Check blood banks</Link>}
+            action={<Link href="/banks" className="rounded-[3px] border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper">Check blood banks</Link>}
           />
         ) : (
           <ul className="space-y-3">
             {matches.map(({ donor, eligible, sameArea, rareMatch, deferral, apheresisReady, next }) => {
               const ready = isEffectivelyAvailable(donor) && eligible && !deferral;
               return (
-                <li key={donor.id} className={`flex items-center gap-3 rounded-2xl border bg-white px-4 py-3 ${ready ? "border-ink-200" : "border-ink-200 opacity-70"}`}>
+                <li key={donor.id} className={`flex items-center gap-3 rounded-[4px] border bg-cream px-4 py-3 ${ready ? "border-line" : "border-line opacity-70"}`}>
                   <GroupBadge group={donor.group} />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-ink-900">
+                    <p className="truncate text-sm font-semibold text-ink">
                       {donor.name}
-                      {sameArea && <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-green-800">nearby</span>}
-                      {rareMatch && <span className="ml-2 rounded bg-purple-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-purple-800" title={`Rare phenotype match: ${donor.rarePhenotype}`}>rare match</span>}
-                      {apheresisReady && <span className="ml-2 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-900" title="Open to platelet/plasma donation (apheresis)">apheresis-ready</span>}
+                      {sameArea && <span className="ml-2 rounded bg-cream px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-moss">nearby</span>}
+                      {rareMatch && <span className="ml-2 rounded bg-cream px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-signal" title={`Rare phenotype match: ${donor.rarePhenotype}`}>rare match</span>}
+                      {apheresisReady && <span className="ml-2 rounded bg-cream px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-gold" title="Open to platelet/plasma donation (apheresis)">apheresis-ready</span>}
                     </p>
-                    <p className="text-xs text-ink-500">
+                    <p className="text-xs text-faint">
                       {donor.area} · {donor.donations} donation{donor.donations === 1 ? "" : "s"}
                       {deferral ? (
-                        <span className="font-semibold text-amber-800">
+                        <span className="font-semibold text-gold">
                           {` · deferred until ${formatDate(deferral.deferredUntil)}`}
                         </span>
                       ) : (
@@ -525,18 +525,18 @@ export default function RequestDetail() {
                     </p>
                   </div>
                   {ready ? (
-                    <a href={telHref(donor.phone)} className="rounded-lg bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center">
+                    <a href={telHref(donor.phone)} className="rounded-[3px] bg-signal px-4 py-2 text-sm font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center">
                       Call
                     </a>
                   ) : (
-                    <span className="rounded-lg bg-ink-100 px-4 py-2 text-xs font-semibold text-ink-500">Not available</span>
+                    <span className="rounded-[3px] bg-sand px-4 py-2 text-xs font-semibold text-faint">Not available</span>
                   )}
                 </li>
               );
             })}
           </ul>
         )}
-        <p className="mt-3 text-xs text-ink-500">
+        <p className="mt-3 text-xs text-faint">
           Matches use the red-cell transfusion compatibility matrix. Donors are ranked by
           availability, 90-day eligibility, proximity, and rarity. Rare-group donors
           (O−, A−, B−, AB−) are flagged because they're hardest to find.

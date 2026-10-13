@@ -6,7 +6,7 @@ import { useDonors, useRequests, useBanks, useWatches, usePatients } from "@/lib
 import { BLOOD_GROUPS, COMPATIBLE_DONORS, freshWatchMatches, isEffectivelyAvailable, isEligibleByInterval, isRare } from "@/lib/blood";
 import { computeGroupNeeds, needReason, topAlerts } from "@/lib/need";
 import { forecastFrom, levelBadge } from "@/lib/forecast";
-import { GroupBadge, PageHeader, StatCard, UrgencyBadge } from "@/components/ui";
+import { GroupBadge, Kicker, PageHeader, StatCard, UrgencyBadge } from "@/components/ui";
 import { timeAgo } from "@/lib/blood";
 
 /** First-visit orientation: three steps, dismissible, never shown again. */
@@ -34,28 +34,34 @@ function HowItWorks() {
     { n: "3", title: "Answer the call", body: "When a nearby patient needs your group, call or WhatsApp them directly." },
   ];
   return (
-    <section aria-label="How Raktha works" className="rounded-2xl border border-crimson-200 bg-crimson-50/60 p-5 sm:p-6">
+    <section aria-label="How Raktha works" className="rounded-[4px] border border-line bg-cream p-5 sm:p-8">
       <div className="flex items-start justify-between gap-3">
-        <h2 className="text-base font-bold text-ink-900">How Raktha works</h2>
+        <div>
+          <Kicker>How it works</Kicker>
+          <h2 className="mt-3 font-display text-[28px] font-semibold tracking-tight md:text-[36px]">
+            Three steps between <em className="text-signal">“someone needs blood”</em> and <em>donated</em>.
+          </h2>
+        </div>
         <button
           onClick={dismiss}
-          className="rounded-lg px-3 py-1.5 text-xs font-semibold text-ink-500 hover:bg-white hover:text-ink-800 min-h-[44px]"
+          className="shrink-0 rounded-[3px] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-faint hover:text-ink min-h-[44px]"
           aria-label="Dismiss introduction"
         >
           Dismiss
         </button>
       </div>
-      <ol className="mt-3 grid gap-3 sm:grid-cols-3">
+      <div className="mt-8 border-t border-line">
         {steps.map((s) => (
-          <li key={s.n} className="rounded-xl bg-white p-4 ring-1 ring-inset ring-ink-100">
-            <p className="flex h-7 w-7 items-center justify-center rounded-full bg-crimson-600 text-sm font-bold text-white" aria-hidden="true">
-              {s.n}
-            </p>
-            <p className="mt-2 text-sm font-bold text-ink-900">{s.title}</p>
-            <p className="mt-0.5 text-sm text-ink-600">{s.body}</p>
-          </li>
+          <div
+            key={s.n}
+            className="step-row grid gap-2 border-b border-line px-2 py-6 md:grid-cols-[80px_200px_1fr] md:gap-8 md:px-4"
+          >
+            <p className="font-display text-[15px] italic text-faint">{s.n.padStart(2, "0")}</p>
+            <p className="font-display text-[20px] font-semibold tracking-tight text-ink">{s.title}</p>
+            <p className="text-[15px] leading-relaxed text-soot">{s.body}</p>
+          </div>
         ))}
-      </ol>
+      </div>
     </section>
   );
 }
@@ -99,45 +105,68 @@ export default function Home() {
     .slice(0, 3);
 
   return (
-    <div className="space-y-8">
-      <PageHeader
-        title="Tonight's blood network"
-        subtitle="Live picture of who's ready to donate, who needs blood right now, and where the gaps are."
-      />
+    <div className="space-y-12">
+      {/* ---------- Editorial hero ---------- */}
+      <section className="pt-6 md:pt-10">
+        <Kicker>The emergency blood network · Project 002</Kicker>
+        <h1 className="mt-6 max-w-4xl font-display text-[44px] font-semibold leading-[1.04] tracking-tight md:text-[76px]">
+          When blood is needed, <em className="text-signal">minutes</em> matter.
+        </h1>
+        <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-soot md:text-[18px]">
+          Live picture of who&apos;s ready to donate, who needs blood right
+          now, and where the gaps are. No accounts, no waiting — just donors
+          and patients, connected.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            href="/request"
+            className="lift rounded-[3px] bg-signal px-6 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-cream"
+          >
+            Post an emergency request
+          </Link>
+          <Link
+            href="/donors/register"
+            className="lift rounded-[3px] border border-ink px-6 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-ink"
+          >
+            Register as a donor
+          </Link>
+        </div>
+
+        {/* Stats band */}
+        <div className="mt-14 grid grid-cols-2 gap-8 border-t border-line pt-8 md:grid-cols-4">
+          <StatCard label="Ready donors" value={available.length} hint={`of ${donors.length} registered`} />
+          <StatCard label="Open requests" value={open.length} hint={critical.length ? `${critical.length} critical` : "none critical"} />
+          <StatCard label="Rare groups covered" value={`${rareCovered}/4`} hint="O− A− B− AB− with a match" />
+          <StatCard label="Bank units" value={totalUnits} hint={`${banks.length} blood banks`} />
+        </div>
+      </section>
 
       <HowItWorks />
 
-      <section aria-label="Network statistics" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Ready donors" value={available.length} hint={`of ${donors.length} registered`} />
-        <StatCard label="Open requests" value={open.length} hint={critical.length ? `${critical.length} critical` : "none critical"} />
-        <StatCard label="Rare groups covered" value={`${rareCovered}/4`} hint="O− A− B− AB− with a match" />
-        <StatCard label="Bank units" value={totalUnits} hint={`${banks.length} blood banks`} />
-      </section>
-
       {watchHits.length > 0 && (
-        <section aria-label="Watchlist hits" className="rounded-2xl border-2 border-crimson-600 bg-white p-5 sm:p-6">
+        <section aria-label="Watchlist hits" className="rounded-[4px] border-2 border-signal bg-cream p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-base font-bold text-ink-900">Watchlist: new donors found</h2>
-            <Link href="/watches" className="text-sm font-semibold text-crimson-700 hover:underline">
+            <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Watchlist: new donors found</h2>
+            <Link href="/watches" className="text-sm font-semibold text-signal hover:underline">
               Manage watches
             </Link>
           </div>
           <ul className="mt-4 space-y-3">
             {watchHits.slice(0, 3).map(({ watch, donor }) => (
-              <li key={`${watch.id}:${donor.id}`} className="flex items-center gap-3 rounded-xl bg-crimson-50 px-4 py-3">
+              <li key={`${watch.id}:${donor.id}`} className="flex items-center gap-3 rounded-[3px] bg-cream px-4 py-3">
                 <GroupBadge group={donor.group} />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">{donor.name}</p>
-                  <p className="text-xs text-ink-500">{donor.area} · matches your {watch.group} watch</p>
+                  <p className="truncate text-sm font-semibold text-ink">{donor.name}</p>
+                  <p className="text-xs text-faint">{donor.area} · matches your {watch.group} watch</p>
                 </div>
                 <span className="flex shrink-0 items-center gap-2">
                   <a
                     href={`tel:${donor.phone.replace(/[\s-]/g, "")}`}
-                    className="rounded-lg bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center"
+                    className="rounded-[3px] bg-signal px-4 py-2 text-sm font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center"
                   >
                     Call
                   </a>
-                  <Link href="/donors" className="rounded-lg border border-ink-300 px-4 py-2 text-sm font-semibold text-ink-700 hover:bg-ink-50 min-h-[44px] inline-flex items-center">
+                  <Link href="/donors" className="rounded-[3px] border border-line px-4 py-2 text-sm font-semibold text-soot hover:bg-paper min-h-[44px] inline-flex items-center">
                     View
                   </Link>
                 </span>
@@ -148,26 +177,26 @@ export default function Home() {
       )}
 
       {dueSoon.length > 0 && (
-        <section aria-label="Transfusions due soon" className="rounded-2xl border border-amber-300 bg-amber-50 p-5 sm:p-6">
+        <section aria-label="Transfusions due soon" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-base font-bold text-ink-900">Transfusions due within a week</h2>
-            <Link href="/patients" className="text-sm font-semibold text-crimson-700 hover:underline">
+            <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Transfusions due within a week</h2>
+            <Link href="/patients" className="text-sm font-semibold text-signal hover:underline">
               All patients
             </Link>
           </div>
           <ul className="mt-4 space-y-3">
             {dueSoon.map((p) => (
-              <li key={p.id} className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-inset ring-amber-200">
+              <li key={p.id} className="flex items-center gap-3 rounded-[3px] bg-cream px-4 py-3 ring-1 ring-inset ring-line">
                 <GroupBadge group={p.group} size="sm" />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">{p.name}</p>
-                  <p className="text-xs text-ink-500">
+                  <p className="truncate text-sm font-semibold text-ink">{p.name}</p>
+                  <p className="text-xs text-faint">
                     {p.condition} · {p.nextDue && new Date(p.nextDue + "T00:00:00").getTime() < new Date(new Date().toISOString().slice(0, 10) + "T00:00:00").getTime()
                       ? "overdue — request now"
                       : `due ${p.nextDue}`}
                   </p>
                 </div>
-                <Link href={`/request?patient=${p.id}`} className="shrink-0 rounded-lg bg-crimson-600 px-4 py-2 text-xs font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center">
+                <Link href={`/request?patient=${p.id}`} className="shrink-0 rounded-[3px] bg-signal px-4 py-2 text-xs font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center">
                   Request
                 </Link>
               </li>
@@ -177,26 +206,26 @@ export default function Home() {
       )}
 
       {critical.length > 0 && (
-        <section aria-label="Critical requests" className="rounded-2xl border-2 border-crimson-600 bg-white p-5 sm:p-6">
+        <section aria-label="Critical requests" className="rounded-[4px] border-2 border-signal bg-cream p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-base font-bold text-ink-900">Critical right now</h2>
-            <Link href="/requests" className="text-sm font-semibold text-crimson-700 hover:underline">
+            <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Critical right now</h2>
+            <Link href="/requests" className="text-sm font-semibold text-signal hover:underline">
               View all
             </Link>
           </div>
           <ul className="mt-4 space-y-3">
             {critical.slice(0, 3).map((r) => (
-              <li key={r.id} className="flex items-center gap-3 rounded-xl bg-crimson-50 px-4 py-3">
+              <li key={r.id} className="flex items-center gap-3 rounded-[3px] bg-cream px-4 py-3">
                 <GroupBadge group={r.group} />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {r.units} unit{r.units > 1 ? "s" : ""} · {r.hospital}
                   </p>
-                  <p className="text-xs text-ink-500">{timeAgo(r.createdAt)} · {r.area}</p>
+                  <p className="text-xs text-faint">{timeAgo(r.createdAt)} · {r.area}</p>
                 </div>
                 <a
                   href={`tel:${r.contactPhone.replace(/\s/g, "")}`}
-                  className="rounded-lg bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700"
+                  className="rounded-[3px] bg-signal px-4 py-2 text-sm font-semibold text-cream hover:bg-ember"
                 >
                   Call
                 </a>
@@ -206,30 +235,30 @@ export default function Home() {
         </section>
       )}
 
-      <section aria-label="Shortage alerts" className="rounded-2xl border border-amber-300 bg-amber-50 p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Needed in your area right now</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Shortage alerts" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Needed in your area right now</h2>
+        <p className="mt-1 text-sm text-soot">
           Live shortage signal — groups where open demand outruns ready donors and bank stock.
         </p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {alerts.map(({ need, level }) => (
-            <li key={need.group} className="rounded-xl border border-amber-200 bg-white px-4 py-3">
+            <li key={need.group} className="rounded-[3px] border border-line bg-cream px-4 py-3">
               <div className="flex items-center gap-2">
                 <GroupBadge group={need.group} />
                 <span
-                  className={`rounded-md px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
-                    level === "shortage" ? "bg-crimson-600 text-white" : "bg-amber-100 text-amber-900"
+                  className={`rounded-[3px] px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
+                    level === "shortage" ? "bg-signal text-cream" : "bg-cream text-gold"
                   }`}
                 >
                   {level === "shortage" ? "Shortage" : "Watch"}
                 </span>
               </div>
-              <p className="mt-2 text-sm font-semibold text-ink-900">
+              <p className="mt-2 text-sm font-semibold text-ink">
                 {need.demandUnits} unit{need.demandUnits === 1 ? "" : "s"} needed
-                <span className="font-normal text-ink-500"> · {need.readyDonors} ready donor{need.readyDonors === 1 ? "" : "s"}</span>
+                <span className="font-normal text-faint"> · {need.readyDonors} ready donor{need.readyDonors === 1 ? "" : "s"}</span>
               </p>
-              <p className="mt-0.5 text-xs text-ink-500">{needReason(need)}</p>
-              <Link href="/donors/register" className="mt-2 inline-block text-sm font-semibold text-crimson-700 hover:underline">
+              <p className="mt-0.5 text-xs text-faint">{needReason(need)}</p>
+              <Link href="/donors/register" className="mt-2 inline-block text-sm font-semibold text-signal hover:underline">
                 Register as a donor →
               </Link>
             </li>
@@ -237,62 +266,67 @@ export default function Home() {
         </ul>
       </section>
 
-      <section aria-label="Demand forecast" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Demand forecast</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Demand forecast" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Demand forecast</h2>
+        <p className="mt-1 text-sm text-soot">
           Blood demand follows the seasons. A unit donated 2–3 weeks before a peak helps far more than one donated after it.
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {forecast.map((m) => {
             const badge = levelBadge(m.level);
             return (
-              <div key={m.month} className="rounded-xl bg-ink-50 p-4">
+              <div key={m.month} className="rounded-[3px] bg-paper p-4">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm font-bold text-ink-900">{m.name}</p>
-                  <span className={`rounded-md px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${badge.cls}`}>
+                  <p className="text-sm font-bold text-ink">{m.name}</p>
+                  <span className={`rounded-[3px] px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${badge.cls}`}>
                     {badge.label}
                   </span>
                 </div>
-                <p className="mt-2 text-xs text-ink-600">{m.drivers.join(" · ")}</p>
-                <p className="mt-2 text-xs font-medium text-ink-800">{m.tip}</p>
+                <p className="mt-2 text-xs text-soot">{m.drivers.join(" · ")}</p>
+                <p className="mt-2 text-xs font-medium text-ink">{m.tip}</p>
               </div>
             );
           })}
         </div>
       </section>
 
-      <section aria-label="Compatibility coverage" className="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">
-        <h2 className="text-base font-bold text-ink-900">Who can cover each group tonight</h2>
-        <p className="mt-1 text-sm text-ink-600">
+      <section aria-label="Compatibility coverage" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
+        <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Who can cover each group tonight</h2>
+        <p className="mt-1 text-sm text-soot">
           Ready, eligible donors whose blood can go to a patient of each group.
         </p>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {groupCounts.map(({ group, count }) => (
-            <div key={group} className="rounded-xl bg-ink-50 px-4 py-3">
+            <div key={group} className="rounded-[3px] bg-paper px-4 py-3">
               <GroupBadge group={group} size="sm" />
-              <p className="tnum mt-2 text-2xl font-bold text-ink-900">{count}</p>
-              <p className="text-xs text-ink-500">compatible donor{count === 1 ? "" : "s"}</p>
+              <p className="tnum mt-2 text-2xl font-bold text-ink">{count}</p>
+              <p className="text-xs text-faint">compatible donor{count === 1 ? "" : "s"}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2">
-        <Link href="/request" className="rounded-2xl bg-crimson-600 p-6 text-white hover:bg-crimson-700">
-          <h2 className="text-lg font-bold">Someone needs blood</h2>
-          <p className="mt-1 text-sm text-crimson-100">
-            Post a request in under a minute. We'll show you every compatible donor to call.
+        <Link href="/request" className="lift rounded-[4px] bg-signal p-6 text-cream md:p-8">
+          <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-cream/80">
+            <span className="inline-block h-[7px] w-[7px] bg-cream" aria-hidden="true" />
+            For patients
           </p>
-          <span className="mt-4 inline-block rounded-lg bg-white px-4 py-2 text-sm font-semibold text-crimson-700">
+          <h2 className="mt-3 font-display text-[26px] font-semibold tracking-tight">Someone needs blood</h2>
+          <p className="mt-2 text-[15px] leading-relaxed text-cream/90">
+            Post a request in under a minute. We&apos;ll show you every compatible donor to call.
+          </p>
+          <span className="mt-5 inline-block rounded-[3px] bg-cream px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-signal">
             Post an emergency request
           </span>
         </Link>
-        <Link href="/donors/register" className="rounded-2xl border border-ink-200 bg-white p-6 hover:bg-ink-50">
-          <h2 className="text-lg font-bold text-ink-900">You can save a life</h2>
-          <p className="mt-1 text-sm text-ink-600">
+        <Link href="/donors/register" className="lift rounded-[4px] border border-ink bg-cream p-6 md:p-8">
+          <Kicker>For donors</Kicker>
+          <h2 className="mt-3 font-display text-[26px] font-semibold tracking-tight text-ink">You can save a life</h2>
+          <p className="mt-2 text-[15px] leading-relaxed text-soot">
             Register as a donor, check your eligibility in 2 minutes, and get counted tonight.
           </p>
-          <span className="mt-4 inline-block rounded-lg border border-ink-300 px-4 py-2 text-sm font-semibold text-ink-800">
+          <span className="mt-5 inline-block rounded-[3px] border border-ink px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-ink">
             Register as a donor
           </span>
         </Link>
@@ -301,22 +335,22 @@ export default function Home() {
       {fulfilled.length > 0 && (
         <section aria-label="Recently fulfilled">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-base font-bold text-ink-900">Recently fulfilled</h2>
-            <Link href="/requests" className="text-sm font-semibold text-crimson-700 hover:underline">
+            <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Recently fulfilled</h2>
+            <Link href="/requests" className="text-sm font-semibold text-signal hover:underline">
               All requests
             </Link>
           </div>
           <ul className="space-y-3">
             {fulfilled.map((r) => (
-              <li key={r.id} className="flex items-center gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-700 text-sm font-bold text-white" aria-hidden="true">
+              <li key={r.id} className="flex items-center gap-3 rounded-[4px] border border-line bg-cream px-4 py-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-moss text-sm font-bold text-cream" aria-hidden="true">
                   ✓
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {r.units} unit{r.units > 1 ? "s" : ""} of {r.group} → {r.patientName}
                   </p>
-                  <p className="text-xs text-ink-500">{r.hospital} · {timeAgo(r.createdAt)}</p>
+                  <p className="text-xs text-faint">{r.hospital} · {timeAgo(r.createdAt)}</p>
                 </div>
               </li>
             ))}
@@ -327,20 +361,20 @@ export default function Home() {
       {open.length > 0 && (
         <section aria-label="Recent requests">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-base font-bold text-ink-900">Latest requests</h2>
-            <Link href="/requests" className="text-sm font-semibold text-crimson-700 hover:underline">
+            <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">Latest requests</h2>
+            <Link href="/requests" className="text-sm font-semibold text-signal hover:underline">
               All requests
             </Link>
           </div>
           <ul className="space-y-3">
             {open.slice(0, 3).map((r) => (
-              <li key={r.id} className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white px-4 py-3">
+              <li key={r.id} className="flex items-center gap-3 rounded-[4px] border border-line bg-cream px-4 py-3">
                 <GroupBadge group={r.group} />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {r.patientName} · {r.hospital}
                   </p>
-                  <p className="text-xs text-ink-500">{timeAgo(r.createdAt)} · {r.area}</p>
+                  <p className="text-xs text-faint">{timeAgo(r.createdAt)} · {r.area}</p>
                 </div>
                 <UrgencyBadge urgency={r.urgency} />
               </li>
