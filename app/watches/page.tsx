@@ -37,24 +37,24 @@ export default function Watches() {
         <section
           role="status"
           aria-label="Watchlist hits"
-          className="rounded-2xl border-2 border-crimson-600 bg-crimson-50 p-5"
+          className="rounded-[4px] border-2 border-signal bg-cream p-5"
         >
-          <h2 className="text-base font-bold text-crimson-900">
+          <h2 className="text-base font-bold text-ember">
             {hits.length} new {hits.length === 1 ? "donor" : "donors"} match your watches
           </h2>
           <ul className="mt-3 space-y-2">
             {hits.slice(0, 5).map(({ watch, donor }) => (
-              <li key={`${watch.id}:${donor.id}`} className="flex items-center gap-3 rounded-xl bg-white px-4 py-2.5">
+              <li key={`${watch.id}:${donor.id}`} className="flex items-center gap-3 rounded-[3px] bg-cream px-4 py-2.5">
                 <GroupBadge group={donor.group} size="sm" />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-ink-900">{donor.name}</p>
-                  <p className="text-xs text-ink-500">
+                  <p className="truncate text-sm font-semibold text-ink">{donor.name}</p>
+                  <p className="text-xs text-faint">
                     {donor.area} · matches your {watch.group}{watch.area ? ` / ${watch.area}` : ""} watch
                   </p>
                 </div>
                 <Link
                   href="/donors"
-                  className="shrink-0 rounded-lg bg-crimson-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-crimson-700 min-h-[44px] inline-flex items-center"
+                  className="shrink-0 rounded-[3px] bg-signal px-3.5 py-2 text-xs font-semibold text-cream hover:bg-ember min-h-[44px] inline-flex items-center"
                 >
                   View
                 </Link>
@@ -64,14 +64,14 @@ export default function Watches() {
         </section>
       )}
 
-      <section className="rounded-2xl border border-ink-200 bg-white p-5">
-        <h2 className="text-sm font-bold text-ink-900">New watch</h2>
+      <section className="rounded-[4px] border border-line bg-cream p-5">
+        <h2 className="text-sm font-bold text-ink">New watch</h2>
         <form onSubmit={submit} className="mt-3 grid gap-3 sm:grid-cols-[140px_1fr_auto]">
           <select
             aria-label="Blood group to watch"
             value={group}
             onChange={(e) => setGroup(e.target.value as BloodGroup)}
-            className="rounded-xl border border-ink-300 bg-white px-3 py-2.5 text-sm font-medium min-h-[44px]"
+            className="rounded-[3px] border border-line bg-cream px-3 py-2.5 text-sm font-medium min-h-[44px]"
           >
             {BLOOD_GROUPS.map((g) => (
               <option key={g} value={g}>{g}{isRare(g) ? " — rare" : ""}</option>
@@ -82,19 +82,19 @@ export default function Watches() {
             onChange={(e) => setArea(e.target.value)}
             placeholder="Area / locality (optional) — e.g. Guindy"
             aria-label="Area to watch"
-            className="rounded-xl border border-ink-300 px-3 py-2.5 text-sm min-h-[44px]"
+            className="rounded-[3px] border border-line px-3 py-2.5 text-sm min-h-[44px]"
           />
-          <button type="submit" className="rounded-xl bg-crimson-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-crimson-700 min-h-[44px]">
+          <button type="submit" className="rounded-[3px] bg-signal px-5 py-2.5 text-sm font-semibold text-cream hover:bg-ember min-h-[44px]">
             Watch
           </button>
         </form>
-        <p className="mt-2 text-xs text-ink-500">
+        <p className="mt-2 text-xs text-faint">
           Leave the area blank to match donors anywhere. Watches live in this browser only.
         </p>
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-bold text-ink-900">Your watches</h2>
+        <h2 className="mb-3 text-sm font-bold text-ink">Your watches</h2>
         {watches.length === 0 ? (
           <EmptyState
             kind="search"
@@ -106,19 +106,19 @@ export default function Watches() {
             {watches.map((w) => {
               const count = hits.filter((h) => h.watch.id === w.id).length;
               return (
-                <li key={w.id} className="flex items-center gap-3 rounded-xl border border-ink-200 bg-white px-4 py-3">
+                <li key={w.id} className="flex items-center gap-3 rounded-[3px] border border-line bg-cream px-4 py-3">
                   <GroupBadge group={w.group} size="sm" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-ink-900">
+                    <p className="text-sm font-semibold text-ink">
                       {w.group}{w.area ? ` in ${w.area}` : " anywhere"}
                     </p>
-                    <p className="text-xs text-ink-500">
+                    <p className="text-xs text-faint">
                       {count > 0 ? `${count} new matching donor${count === 1 ? "" : "s"}` : "No new donors yet — last 14 days"}
                     </p>
                   </div>
                   <button
                     onClick={() => removeWatch(w.id)}
-                    className="rounded-lg px-3 py-1.5 text-xs font-semibold text-ink-400 hover:bg-crimson-50 hover:text-crimson-700 min-h-[44px]"
+                    className="rounded-[3px] px-3 py-1.5 text-xs font-semibold text-faint hover:bg-cream hover:text-signal min-h-[44px]"
                   >
                     Remove
                   </button>

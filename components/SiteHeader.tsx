@@ -19,25 +19,25 @@ const LINKS = [
 export default function SiteHeader() {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-200 bg-white/95 backdrop-blur print:hidden">
-      <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-3 px-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur print:hidden">
+      <div className="mx-auto flex h-[72px] w-full max-w-6xl items-center gap-3 px-5">
         <Link href="/" className="flex items-center gap-3" aria-label="Project 002 Raktha home">
           <span
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-crimson-600 text-lg font-bold text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-[3px] bg-signal font-display text-xl font-bold text-cream"
             aria-hidden="true"
           >
             R
           </span>
           <span className="leading-tight">
-            <span className="block text-base font-semibold tracking-tight text-ink-900">
+            <span className="block font-display text-[22px] font-semibold tracking-tight text-ink">
               Raktha
             </span>
-            <span className="block text-[11px] font-medium uppercase tracking-widest text-ink-500">
+            <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-faint">
               Project 002 · Blood network
             </span>
           </span>
         </Link>
-        <nav className="ml-auto hidden items-center gap-1 md:flex" aria-label="Primary">
+        <nav className="ml-auto hidden items-center gap-6 md:flex" aria-label="Primary">
           {LINKS.map((l) => {
             const active = pathname === l.href;
             return (
@@ -45,10 +45,9 @@ export default function SiteHeader() {
                 key={l.href}
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  active
-                    ? "bg-crimson-50 text-crimson-700"
-                    : "text-ink-600 hover:bg-ink-100 hover:text-ink-900"
+                data-active={active}
+                className={`u-sweep text-[13px] font-semibold uppercase tracking-[0.1em] ${
+                  active ? "text-signal" : "text-soot hover:text-ink"
                 }`}
               >
                 {l.label}
@@ -58,7 +57,7 @@ export default function SiteHeader() {
         </nav>
         <Link
           href="/request"
-          className="ml-auto rounded-lg bg-crimson-600 px-4 py-2 text-sm font-semibold text-white hover:bg-crimson-700 md:ml-2"
+          className="lift ml-auto rounded-[3px] bg-signal px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-cream md:ml-6"
         >
           Emergency
         </Link>

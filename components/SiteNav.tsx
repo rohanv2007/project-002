@@ -19,7 +19,7 @@ export default function SiteNav() {
   return (
     <nav
       aria-label="Mobile"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-ink-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden print:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden print:hidden"
     >
       <div className="grid grid-cols-8">
         {LINKS.map((l) => {
@@ -29,12 +29,12 @@ export default function SiteNav() {
               key={l.href}
               href={l.href}
               aria-current={active ? "page" : undefined}
-              className={`flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium ${
-                active ? "text-crimson-700" : "text-ink-500"
+              className={`flex flex-col items-center gap-1 py-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] ${
+                active ? "text-signal" : "text-faint"
               }`}
             >
               <span
-                className={`h-1.5 w-8 rounded-full ${active ? "bg-crimson-600" : "bg-transparent"}`}
+                className={`h-[3px] w-8 ${active ? "bg-signal" : "bg-line"}`}
                 aria-hidden="true"
               />
               {l.label}
