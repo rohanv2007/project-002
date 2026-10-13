@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-ink-50 text-ink-900 antialiased;
+}
+
+/* Calm, readable numeric tabular data */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid #b91c2e;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Thin, unobtrusive scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d5cdc6 transparent;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print-friendly donation record: plain paper, no chrome */
+@media print {
+  body {
+    background: #fff;
+  }
+  main {
+    padding: 0 !important;
+  }
+  .print-avoid-break {
+    break-inside: avoid;
+  }
+  a[href^="tel:"] {
+    text-decoration: none;
+    color: inherit;
+  }
+}
