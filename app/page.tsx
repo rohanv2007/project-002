@@ -108,7 +108,7 @@ export default function Home() {
     <div className="space-y-12">
       {/* ---------- Editorial hero ---------- */}
       <section className="pt-6 md:pt-10">
-        <Kicker>The emergency blood network · Project 002</Kicker>
+        <Kicker>The emergency blood network</Kicker>
         <h1 className="mt-6 max-w-4xl font-display text-[44px] font-semibold leading-[1.04] tracking-tight md:text-[76px]">
           When blood is needed, <em className="text-signal">minutes</em> matter.
         </h1>

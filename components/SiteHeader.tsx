@@ -21,7 +21,7 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur print:hidden">
       <div className="mx-auto flex h-[72px] w-full max-w-6xl items-center gap-3 px-5">
-        <Link href="/" className="flex items-center gap-3" aria-label="Project 002 Raktha home">
+        <Link href="/" className="flex items-center gap-3" aria-label="Raktha home">
           <span
             className="flex h-10 w-10 items-center justify-center rounded-[3px] bg-signal font-display text-xl font-bold text-cream"
             aria-hidden="true"
@@ -33,7 +33,7 @@ export default function SiteHeader() {
               Raktha
             </span>
             <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-faint">
-              Project 002 · Blood network
+              Blood network
             </span>
           </span>
         </Link>

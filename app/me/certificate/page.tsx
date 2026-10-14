@@ -56,7 +56,7 @@ function Certificate() {
       {/* The certificate itself: shows on screen AND in print */}
       <div className="rounded-none border-4 border-double border-ink bg-cream p-8 sm:p-12 print:border-4">
         <div className="text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-faint">Raktha · Project 002</p>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-faint">Raktha</p>
           <h1 className="mt-3 text-3xl font-bold text-ink sm:text-4xl">Certificate of Gratitude</h1>
           <p className="mt-2 text-sm text-soot">Presented with deep thanks to</p>
           <p className="mt-3 border-b-2 border-line pb-3 text-2xl font-bold text-signal sm:text-3xl">

@@ -70,7 +70,7 @@ export default function RequestFlyer() {
           If your blood group can donate to {request.group}, please call. One call can save a life.
         </p>
         <p className="mt-4 text-xs font-bold uppercase tracking-[0.3em] text-faint">
-          Raktha · Project 002
+          Raktha
         </p>
 
         {/* Tear-off contact tabs: the classic noticeboard flyer trick — a

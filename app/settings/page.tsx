@@ -17,6 +17,7 @@ const DATA_KEYS = [
   "raktha.patients.v1",
   "raktha.deferrals.v1",
   "raktha.appointments.v1",
+  "raktha.request-updates.v1",
   "raktha.seeded.v1",
 ] as const;
 
@@ -248,7 +249,7 @@ export default function Settings() {
       <section aria-label="About" className="rounded-[4px] border border-line bg-cream p-5 sm:p-6">
         <h2 className="font-display text-[24px] font-semibold tracking-tight text-ink">About</h2>
         <p className="mt-2 text-sm text-soot">
-          <strong className="text-ink">Project 002 · Raktha — Emergency Blood Donor Network.</strong>{" "}
+          <strong className="text-ink">Raktha — Emergency Blood Donor Network.</strong>{" "}
           A calm, fast, local-first network: register donors once, screen eligibility honestly,
           post a request in under a minute, and call the right donors before it's too late.
         </p>

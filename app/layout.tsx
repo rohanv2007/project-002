@@ -22,9 +22,9 @@ const grotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Project 002 · Raktha — Emergency Blood Donor Network",
+  title: "Raktha — Emergency Blood Donor Network",
   description:
-    "Raktha (Project 002) connects emergency blood requests with compatible local donors — eligibility screening, donor registry, and request matching.",
+    "Raktha connects emergency blood requests with compatible local donors — eligibility screening, donor registry, and request matching.",
 };
 
 export const viewport = {
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="mx-auto w-full max-w-6xl px-5 pb-28 pt-2 sm:pb-10 print:hidden">
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line pt-4">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-faint">
-              Project 002 · Raktha — Emergency Blood Donor Network
+              Raktha — Emergency Blood Donor Network
             </p>
             <nav aria-label="Footer" className="flex gap-6">
               <Link href="/settings" className="u-sweep text-[13px] font-semibold uppercase tracking-[0.12em] text-soot">
